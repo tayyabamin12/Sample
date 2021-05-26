@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_person"
+            android:title="@string/menu_profile" />
+        <item
+            android:id="@+id/nav_property_unit"
+            android:icon="@drawable/ic_baseline_apartment"
+            android:title="@string/menu_property_unit" />
+        <item
+            android:id="@+id/nav_contract"
+            android:icon="@drawable/ic_baseline_feed"
+            android:title="@string/menu_contract" />
+        <item
+            android:id="@+id/nav_renew_contract"
+            android:icon="@drawable/ic_baseline_content_paste"
+            android:title="@string/menu_renew_contract" />
+        <item
+            android:id="@+id/nav_end_contract"
+            android:icon="@drawable/ic_baseline_content_paste_off"
+            android:title="@string/menu_end_contract" />
+        <item
+            android:id="@+id/nav_payment_history"
+            android:icon="@drawable/ic_baseline_payment"
+            android:title="@string/menu_payment" />
+        <item
+            android:id="@+id/nav_policy"
+            android:icon="@drawable/ic_baseline_policy"
+            android:title="@string/menu_docs" />
+        <item
+            android:id="@+id/nav_change_password"
+            android:icon="@drawable/ic_baseline_password"
+            android:title="@string/menu_change_password" />
+    </group>
+</menu>

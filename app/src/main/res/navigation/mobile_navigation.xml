@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.safidence.safidence.ui.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_request"
+            app:destination="@id/nav_request" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_payment"
+            app:destination="@id/nav_payment" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_announcements"
+            app:destination="@id/nav_announcements" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_docs"
+            app:destination="@id/nav_docs" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.safidence.safidence.ui.profile.ProfileFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_profile"/>
+
+    <fragment
+        android:id="@+id/nav_property_unit"
+        android:name="com.safidence.safidence.ui.property.PropertyFragment"
+        android:label="@string/menu_property_unit"
+        tools:layout="@layout/fragment_property" />
+
+    <fragment
+        android:id="@+id/nav_request"
+        android:name="com.safidence.safidence.ui.request.RequestFragment"
+        android:label="@string/menu_requests"
+        tools:layout="@layout/fragment_requests" >
+        <action
+            android:id="@+id/action_nav_request_to_nav_new_request"
+            app:destination="@id/nav_new_request" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_new_request"
+        android:name="com.safidence.safidence.ui.newrequest.NewRequestFragment"
+        android:label="Open New Request"
+        tools:layout="@layout/fragment_new_request" />
+
+    <fragment
+        android:id="@+id/nav_announcements"
+        android:name="com.safidence.safidence.ui.announcement.AnnouncementsFragment"
+        android:label="Announcements"
+        tools:layout="@layout/fragment_announcements" />
+
+    <fragment
+        android:id="@+id/nav_payment_history"
+        android:name="com.safidence.safidence.ui.paymenthistory.PaymentHistoryFragment"
+        android:label="Payment History"
+        tools:layout="@layout/fragment_payment_history" />
+
+    <fragment
+        android:id="@+id/nav_payment"
+        android:name="com.safidence.safidence.ui.payment.PaymentFragment"
+        android:label="Payment"
+        tools:layout="@layout/fragment_payment" >
+        <action
+            android:id="@+id/action_nav_payment_to_nav_credit_card"
+            app:destination="@id/nav_credit_card" />
+        <action
+            android:id="@+id/action_nav_payment_to_nav_cash_payment"
+            app:destination="@id/nav_cash_payment" />
+        <action
+            android:id="@+id/action_nav_payment_to_nav_bank_deposit"
+            app:destination="@id/nav_bank_deposit" />
+        <action
+            android:id="@+id/action_nav_payment_to_nav_cheque"
+            app:destination="@id/nav_cheque" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_docs"
+        android:name="com.safidence.safidence.ui.docs.DocsFragment"
+        android:label="Documents"
+        tools:layout="@layout/fragment_docs" >
+        <action
+            android:id="@+id/action_nav_docs_to_nav_doc_new"
+            app:destination="@id/nav_doc_new" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_doc_new"
+        android:name="com.safidence.safidence.ui.newdoc.NewDocFragment"
+        android:label="Upload New Document"
+        tools:layout="@layout/fragment_new_doc" />
+
+    <fragment
+        android:id="@+id/nav_contract"
+        android:name="com.safidence.safidence.ui.contract.ContractFragment"
+        android:label="Contract"
+        tools:layout="@layout/fragment_contract" />
+
+    <fragment
+        android:id="@+id/nav_renew_contract"
+        android:name="com.safidence.safidence.ui.renew.RenewContractFragment"
+        android:label="Renew Contract"
+        tools:layout="@layout/fragment_renew_contract" />
+
+    <fragment
+        android:id="@+id/nav_end_contract"
+        android:name="com.safidence.safidence.ui.end.EndContractFragment"
+        android:label="End Contract"
+        tools:layout="@layout/fragment_end_contract" />
+
+    <fragment
+        android:id="@+id/nav_policy"
+        android:name="com.safidence.safidence.ui.policy.PolicyFragment"
+        android:label="Documents &amp; Policies"
+        tools:layout="@layout/fragment_policy" />
+    <fragment
+        android:id="@+id/nav_login"
+        android:name="com.safidence.safidence.ui.login.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/nav_change_password"
+        android:name="com.safidence.safidence.ui.changepassword.PasswordFragment"
+        android:label="Change Password"
+        tools:layout="@layout/fragment_password" />
+    <fragment
+        android:id="@+id/nav_credit_card"
+        android:name="com.safidence.safidence.ui.creditcard.CreditCardFragment"
+        android:label="Credit Card"
+        tools:layout="@layout/fragment_credit_card" />
+    <fragment
+        android:id="@+id/nav_cash_payment"
+        android:name="com.safidence.safidence.ui.cashpayment.CashPaymentFragment"
+        android:label="Cash Payment"
+        tools:layout="@layout/fragment_cash_payment" />
+    <fragment
+        android:id="@+id/nav_bank_deposit"
+        android:name="com.safidence.safidence.ui.bank.BankPaymentFragment"
+        android:label="Bank Deposit"
+        tools:layout="@layout/fragment_bank_deposit" />
+    <fragment
+        android:id="@+id/nav_cheque"
+        android:name="com.safidence.safidence.ui.cheque.ChequeFragment"
+        android:label="Cheque"
+        tools:layout="@layout/fragment_cheque" />
+
+</navigation>
