@@ -7,6 +7,8 @@
     android:clickable="true"
     android:focusable="true"
     app:cardUseCompatPadding="true"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/purple_500"
     android:foreground="?android:attr/selectableItemBackground">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,6 +20,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textStyle="bold"
+            android:textColor="@color/blue"
             app:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

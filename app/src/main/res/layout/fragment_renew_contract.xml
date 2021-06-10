@@ -2,65 +2,74 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:id="@+id/ll_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-        <TextView
-            android:id="@+id/tv_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Current Expiry Date"
-            android:layout_weight="4"/>
-        <TextView
-            android:id="@+id/tv_date_txt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="31-12-2021"
-            android:layout_weight="6"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_renew_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/ll_date"
-        app:layout_constraintStart_toStartOf="parent">
-        <TextView
-            android:id="@+id/tv_renew_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Renew Till"
-            android:layout_weight="4"/>
-        <TextView
-            android:id="@+id/tv_renew_txt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="31-12-2022"
-            android:layout_weight="6"/>
-    </LinearLayout>
-    <Button
-        android:id="@+id/btn_submit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Submit Request"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/ll_renew_date"
+    <include app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        style="@style/Widget.MaterialComponents.Button" />
+        layout="@layout/layout_bar_bg" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="60dp"
+        app:layout_constraintStart_toStartOf="parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            app:boxBackgroundColor="@android:color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tf_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Current Expiry Date"
+                app:boxStrokeColor="@color/purple_500"
+                app:hintTextColor="@color/blue"
+                android:layout_marginBottom="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tf_renew_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Renew Till"
+                app:boxStrokeColor="@color/purple_500"
+                app:hintTextColor="@color/blue"
+                android:layout_marginBottom="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_renew_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <Button
+                android:id="@+id/btn_create_request"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submit Request"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/blue"
+                style="@style/Widget.MaterialComponents.Button" />
+
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

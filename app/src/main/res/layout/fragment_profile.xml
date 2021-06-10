@@ -2,14 +2,163 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <include app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        layout="@layout/layout_bar_bg" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="60dp"
+        app:layout_constraintStart_toStartOf="parent">
+        <LinearLayout
+            android:id="@+id/ll_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            app:boxBackgroundColor="@android:color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tf_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Name"
+                app:boxStrokeColor="@color/purple_500"
+                app:hintTextColor="@color/blue"
+                android:layout_marginBottom="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_fullname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tf_national_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="National Id"
+                app:boxStrokeColor="@color/purple_500"
+                app:hintTextColor="@color/blue"
+                android:layout_marginBottom="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_national_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tf_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Phone"
+                app:boxStrokeColor="@color/purple_500"
+                app:hintTextColor="@color/blue"
+                android:layout_marginBottom="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tf_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                app:boxStrokeColor="@color/purple_500"
+                app:hintTextColor="@color/blue"
+                android:layout_marginBottom="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tf_nationality"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nationality"
+                app:boxStrokeColor="@color/purple_500"
+                app:hintTextColor="@color/blue"
+                android:layout_marginBottom="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_nationality"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tf_emergency_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Emergency Name"
+                app:boxStrokeColor="@color/purple_500"
+                app:hintTextColor="@color/blue"
+                android:layout_marginBottom="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_emergency_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tf_emergency_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Emergency Phone"
+                app:boxStrokeColor="@color/purple_500"
+                app:hintTextColor="@color/blue"
+                android:layout_marginBottom="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_emergency_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_create_request"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Create a Request"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/blue"
+                style="@style/Widget.MaterialComponents.Button" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+    <!--<LinearLayout
         android:id="@+id/ll_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:visibility="gone"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:gravity="center_vertical"
@@ -28,8 +177,8 @@
             android:text="Azim"
             android:gravity="center"
             android:layout_weight="6"/>
-    </LinearLayout>
-    <LinearLayout
+    </LinearLayout>-->
+    <!--<LinearLayout
         android:id="@+id/ll_national_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -197,6 +346,6 @@
             android:gravity="center"
             android:text="Create a Request"
             android:layout_weight="6"/>
-    </LinearLayout>
+    </LinearLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

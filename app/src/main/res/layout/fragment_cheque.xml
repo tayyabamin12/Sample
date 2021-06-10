@@ -2,155 +2,138 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:id="@+id/ll_due_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-        <TextView
-            android:id="@+id/tv_due_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Due Date"
-            android:layout_weight="5"/>
-        <TextView
-            android:id="@+id/tv_due_date_txt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:layout_weight="5"/>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/ll_pay_till"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/ll_due_date"
-        app:layout_constraintStart_toStartOf="parent">
-        <TextView
-            android:id="@+id/tv_pay_till"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Pay till:"
-            android:layout_weight="5"/>
-        <TextView
-            android:id="@+id/tv_pay_till_txt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="31-12-2021"
-            android:layout_weight="5"/>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/ll_due_payment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/ll_pay_till"
-        app:layout_constraintStart_toStartOf="parent">
-        <TextView
-            android:id="@+id/tv_due_payment"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Due Payment:"
-            android:layout_weight="5"/>
-        <TextView
-            android:id="@+id/tv_due_payment_txt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="QAR 1000"
-            android:layout_weight="5"/>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/ll_paid_to"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/ll_due_payment"
-        app:layout_constraintStart_toStartOf="parent">
-        <TextView
-            android:id="@+id/tv_paid_to"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Bank"
-            android:layout_weight="5"/>
-        <TextView
-            android:id="@+id/tv_paid_to_txt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:layout_weight="5"/>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/ll_payment_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/ll_paid_to"
-        app:layout_constraintStart_toStartOf="parent">
-        <TextView
-            android:id="@+id/tv_payment_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="No of cheques"
-            android:layout_weight="5"/>
-        <TextView
-            android:id="@+id/tv_payment_date_txt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:layout_weight="5"/>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/ll_upload_receipt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/ll_payment_date"
-        app:layout_constraintStart_toStartOf="parent">
-        <TextView
-            android:id="@+id/tv_upload_receipt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Upload Pictures"
-            android:layout_weight="5"/>
-        <TextView
-            android:id="@+id/tv_upload_receipt_txt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Browse/Capture"
-            android:layout_weight="5"/>
-    </LinearLayout>
+    <include app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        layout="@layout/layout_bar_bg" />
 
-    <Button
-        android:id="@+id/btn_save"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Pay"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/ll_upload_receipt"
-        style="@style/Widget.MaterialComponents.Button" />
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="60dp"
+        app:layout_constraintStart_toStartOf="parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            app:boxBackgroundColor="@android:color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tf_due_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Due Date"
+                app:boxStrokeColor="@color/purple_500"
+                app:hintTextColor="@color/blue"
+                android:layout_marginBottom="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_due_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tf_pay_till"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Pay Till"
+                app:boxStrokeColor="@color/purple_500"
+                app:hintTextColor="@color/blue"
+                android:layout_marginBottom="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_pay_till"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tf_due_payment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Due Payment"
+                app:boxStrokeColor="@color/purple_500"
+                app:hintTextColor="@color/blue"
+                android:layout_marginBottom="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ac_tv_due_payment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tf_bank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Bank"
+                app:boxStrokeColor="@color/purple_500"
+                app:hintTextColor="@color/blue"
+                android:layout_marginBottom="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_bank"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tf_cheques"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="No of Cheques"
+                app:boxStrokeColor="@color/purple_500"
+                app:hintTextColor="@color/blue"
+                android:layout_marginBottom="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_cheques"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tf_pic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Upload Picture"
+                app:boxStrokeColor="@color/purple_500"
+                app:hintTextColor="@color/blue"
+                android:layout_marginBottom="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_pic"
+                    android:layout_width="match_parent"
+                    android:focusableInTouchMode="false"
+                    android:drawableEnd="@drawable/ic_menu_gallery_grey"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/blue"
+                style="@style/Widget.MaterialComponents.Button" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

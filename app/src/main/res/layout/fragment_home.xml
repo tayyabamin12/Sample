@@ -6,19 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
+    <include app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        layout="@layout/layout_bar_bg"/>
+
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
-        android:padding="16dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         android:text="Hello Azim!"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="@color/blue"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,18 +31,21 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="horizontal"
+        android:padding="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title">
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_request"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="5dp"
             android:clickable="true"
             android:focusable="true"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/purple_500"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="5dp"
             app:layout_constraintHeight_percent="0.48"
@@ -51,18 +59,21 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/request"
+                android:textColor="@color/blue"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:drawableTopCompat="@drawable/ic_baseline_request_page" />
 
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_Payments"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="5dp"
             android:clickable="true"
             android:focusable="true"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/purple_500"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="5dp"
             app:layout_constraintHeight_percent="0.48"
@@ -76,18 +87,21 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/payments"
+                android:textColor="@color/blue"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:drawableTopCompat="@drawable/ic_baseline_payments" />
 
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_announcements"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="5dp"
             android:clickable="true"
             android:focusable="true"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/purple_500"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="5dp"
             app:layout_constraintHeight_percent="0.48"
@@ -101,18 +115,21 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/announcements"
+                android:textColor="@color/blue"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:drawableTopCompat="@drawable/ic_baseline_announcement" />
 
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_documents"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="5dp"
             android:clickable="true"
             android:focusable="true"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/purple_500"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="5dp"
             app:layout_constraintHeight_percent="0.48"
@@ -126,10 +143,11 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/documents"
+                android:textColor="@color/blue"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:drawableTopCompat="@drawable/ic_baseline_description" />
 
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,203 +2,156 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:id="@+id/ll_cat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-        <TextView
-            android:id="@+id/tv_cat"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Category"
-            android:layout_weight="4"/>
-        <Spinner
-            android:id="@+id/s_cat"
-            android:layout_width="0dp"
-            android:layout_weight="6"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/ll_subject"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/ll_cat"
-        app:layout_constraintStart_toStartOf="parent">
-        <TextView
-            android:id="@+id/tv_sub"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Request Subject"
-            android:layout_weight="4"/>
-        <EditText
-            android:id="@+id/tv_sub_txt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="6"
-            android:inputType="text"
-            android:importantForAutofill="no" />
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/ll_desc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/ll_subject"
-        app:layout_constraintStart_toStartOf="parent">
-        <TextView
-            android:id="@+id/tv_desc"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Description"
-            android:layout_weight="4"/>
-        <EditText
-            android:id="@+id/tv_desc_txt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="6"
-            android:inputType="text"
-            android:importantForAutofill="no" />
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/ll_priority"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/ll_desc"
-        app:layout_constraintStart_toStartOf="parent">
-        <TextView
-            android:id="@+id/tv_priority"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Priority"
-            android:layout_weight="4"/>
-        <Spinner
-            android:id="@+id/s_priority"
-            android:layout_width="0dp"
-            android:layout_weight="6"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/ll_availability"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/ll_priority"
-        app:layout_constraintStart_toStartOf="parent">
-        <TextView
-            android:id="@+id/tv_availability"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Availability"
-            android:layout_weight="4"/>
-        <TextView
-            android:id="@+id/tv_availability_txt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="01-01-2021"
-            android:layout_weight="6"/>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/ll_upload_pic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/ll_availability"
-        app:layout_constraintStart_toStartOf="parent">
-        <TextView
-            android:id="@+id/tv_upload_pic"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Upload Picture"
-            android:layout_weight="4"/>
-        <TextView
-            android:id="@+id/tv_upload_txt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Browse / Capture"
-            android:layout_weight="6"/>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/ll_upload_video"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/ll_upload_pic"
-        app:layout_constraintStart_toStartOf="parent">
-        <TextView
-            android:id="@+id/tv_upload_video"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Upload Video"
-            android:layout_weight="4"/>
-        <TextView
-            android:id="@+id/tv_video_txt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Browse / Capture"
-            android:layout_weight="6"/>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/ll_no"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/ll_upload_video"
-        app:layout_constraintStart_toStartOf="parent">
-        <TextView
-            android:id="@+id/tv_no"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Callback Number"
-            android:layout_weight="4"/>
-        <EditText
-            android:id="@+id/tv_no_txt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint=""
-            android:layout_weight="6"
-            android:inputType="phone"
-            android:importantForAutofill="no" />
-    </LinearLayout>
+    <include app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        layout="@layout/layout_bar_bg" />
 
-    <Button
-        android:id="@+id/btn_save"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/ll_no"
-        style="@style/Widget.MaterialComponents.Button" />
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="60dp"
+        app:layout_constraintStart_toStartOf="parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            app:boxBackgroundColor="@android:color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tf_cat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Category"
+                app:boxStrokeColor="@color/purple_500"
+                app:hintTextColor="@color/blue"
+                android:layout_marginBottom="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                <AutoCompleteTextView
+                    android:id="@+id/ac_tv_cat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tf_sub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Request Subject"
+                app:boxStrokeColor="@color/purple_500"
+                app:hintTextColor="@color/blue"
+                android:layout_marginBottom="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_sun"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tf_des"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Description"
+                app:boxStrokeColor="@color/purple_500"
+                app:hintTextColor="@color/blue"
+                android:layout_marginBottom="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tf_priority"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Priority"
+                app:boxStrokeColor="@color/purple_500"
+                app:hintTextColor="@color/blue"
+                android:layout_marginBottom="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                <AutoCompleteTextView
+                    android:id="@+id/ac_tv_priority"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tf_availability"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Availability"
+                app:boxStrokeColor="@color/purple_500"
+                app:hintTextColor="@color/blue"
+                android:layout_marginBottom="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_availability"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tf_no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Callback Number"
+                app:boxStrokeColor="@color/purple_500"
+                app:hintTextColor="@color/blue"
+                android:layout_marginBottom="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tf_upload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Upload Picture/Video"
+                app:boxStrokeColor="@color/purple_500"
+                app:hintTextColor="@color/blue"
+                android:layout_marginBottom="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_upload"
+                    android:layout_width="match_parent"
+                    android:focusableInTouchMode="false"
+                    android:drawableEnd="@drawable/ic_menu_gallery_grey"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/blue"
+                style="@style/Widget.MaterialComponents.Button" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
