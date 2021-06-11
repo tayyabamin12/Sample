@@ -12,11 +12,11 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Safidence.NoActionBar"/>
+            android:theme="@style/Theme.Safidence"/>
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Safidence.NoActionBar">
+            android:theme="@style/Theme.Safidence">
             <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

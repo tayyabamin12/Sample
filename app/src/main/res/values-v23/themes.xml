@@ -3,7 +3,5 @@
 
     <style name="SplashTheme" parent="Theme.Safidence.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_icon</item>
-        <item name="colorPrimaryDark">@color/light_grey</item>
-        <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>

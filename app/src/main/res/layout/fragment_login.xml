@@ -14,9 +14,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:rotation="0"
-        android:scaleX="2"
+        android:scaleX="3.3"
         android:scaleY="1"
-        android:scaleType="fitStart" />
+        android:scaleType="fitXY" />
 
     <ImageView
         android:id="@+id/iv_top_bottom"
@@ -26,9 +26,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:rotation="0"
-        android:scaleX="-2"
+        android:scaleX="-3.3"
         android:scaleY="-1"
-        android:scaleType="fitStart" />
+        android:scaleType="fitXY" />
 
     <LinearLayout
         android:layout_width="match_parent"
