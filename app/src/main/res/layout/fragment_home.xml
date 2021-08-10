@@ -114,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="@string/announcements"
+                android:text="@string/alerts"
                 android:textColor="@color/blue"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:drawableTopCompat="@drawable/ic_baseline_announcement" />
