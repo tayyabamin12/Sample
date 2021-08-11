@@ -1,77 +1,60 @@
-package com.safidence.safidence.ui.login
+package com.safidence.safidence.ui.forgetpassword
 
 import android.app.ProgressDialog
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputEditText
-import com.safidence.safidence.MainActivity
 import com.safidence.safidence.R
 import com.safidence.safidence.data.api.ApiHelper
 import com.safidence.safidence.data.api.ApiServiceImpl
 import com.safidence.safidence.ui.base.ViewModelFactory
-import com.safidence.safidence.ui.forgetpassword.ForgetPassActivity
 
-class LoginActivity : AppCompatActivity() {
+class ForgetPassActivity : AppCompatActivity() {
 
-    private lateinit var loginBtn: Button
+    private lateinit var sendBtn: Button
     private lateinit var etCNIC: TextInputEditText
-    private lateinit var etPassword: TextInputEditText
-    private lateinit var tvForgetPass: TextView
-    private lateinit var loginViewModel: LoginViewModel
+    private lateinit var forgetViewModel: ForgetViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupViewModel()
-        setContentView(R.layout.fragment_login)
+        setContentView(R.layout.fragment_forget_password)
         initViews()
         setupLoginObserver()
     }
 
     private fun initViews() {
-        loginBtn = findViewById(R.id.btnLogin)
+        sendBtn = findViewById(R.id.btn_send)
         etCNIC = findViewById(R.id.etNationalId)
-        etPassword = findViewById(R.id.etPassword)
-        tvForgetPass = findViewById(R.id.tvForgotPwd)
-        loginBtn.setOnClickListener {
-            loginViewModel.login(etCNIC.text.toString(), etPassword.text.toString())
+        sendBtn.setOnClickListener {
+            forgetViewModel.forgetPassword(etCNIC.text.toString())
             showProgressDialog()
         }
-
-        tvForgetPass.setOnClickListener {
-            startActivity(Intent(this, ForgetPassActivity::class.java))
-        }
-    }
-
-    private fun openMainActivity() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
     }
 
     private fun setupViewModel() {
-        loginViewModel = ViewModelProvider(
+        forgetViewModel = ViewModelProvider(
             this,
             ViewModelFactory(ApiHelper(ApiServiceImpl()))
-        ).get(LoginViewModel::class.java)
+        ).get(ForgetViewModel::class.java)
     }
 
     private fun setupLoginObserver() {
-        loginViewModel.getLoginResponse().observe(this, Observer{
+        forgetViewModel.getLoginResponse().observe(this, Observer{
             dismissDialog()
-            if (it.success) {
-                openMainActivity()
+            if (it.status.equals("success")) {
+                Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
                 finish()
             }else {
-                Toast.makeText(this, "Invalid username or password", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
             }
         })
 
-        loginViewModel.getExceptionResponse().observe(this, Observer {
+        forgetViewModel.getExceptionResponse().observe(this, Observer {
             dismissDialog()
             Toast.makeText(this, it, Toast.LENGTH_LONG).show()
         })

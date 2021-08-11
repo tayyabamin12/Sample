@@ -23,6 +23,7 @@
     <string name="documents">Documents</string>
     <string name="forgot_password">Forgot your Password?</string>
     <string name="login">Login</string>
+    <string name="send">Send</string>
     <string name="password">Password</string>
     <string name="email">Email</string>
     <string name="national_id">National Id</string>
@@ -32,4 +33,5 @@
     <string name="new_password">New Password</string>
     <string name="current_password">Current Password</string>
     <string name="please_wait">Please wait</string>
+    <string name="forget_password">Forget Password</string>
 </resources>
