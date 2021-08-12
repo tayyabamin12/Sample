@@ -25,11 +25,14 @@ class ApiServiceImpl : ApiService {
             .getObjectSingle(ResponseGeneralMessage::class.java)
     }
 
-    override fun updatePassword(token: String, nic: String): Single<ResponseGeneralMessage> {
+    override fun updatePassword(
+        token: String, nic: String, oldPass: String, newPass: String
+    ): Single<ResponseGeneralMessage> {
         return Rx2AndroidNetworking.post(baseUrl.plus("updatePassword"))
             .addHeaders("Accept", "application/json")
             .addHeaders("Authorization", "Bearer $token")
-            .addBodyParameter("nic", nic)
+            .addBodyParameter("current_password", oldPass)
+            .addBodyParameter("new_password", newPass)
             .build()
             .getObjectSingle(ResponseGeneralMessage::class.java)
     }

@@ -4,7 +4,8 @@ class ApiHelper(private val apiService: ApiService) {
 
     fun login(nic: String, password: String) = apiService.login(nic, password)
     fun forgetPassword(nic: String) = apiService.forgetPassword(nic)
-    fun updatePassword(nic: String, password: String) = apiService.updatePassword(nic, password)
+    fun updatePassword(token: String, nic: String, oldPass: String, newPass:String) =
+        apiService.updatePassword(token, nic, oldPass, newPass)
     fun logout(token: String) = apiService.logout(token)
     fun getTenantData(token: String) = apiService.getTenantData(token)
     fun getRequestTypes(token: String) = apiService.getRequestTypes(token)

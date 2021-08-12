@@ -14,8 +14,9 @@ class MainRepository(private val apiHelper: ApiHelper) {
         return apiHelper.forgetPassword(nic)
     }
 
-    fun updatePassword(nic:String, password:String): Single<ResponseGeneralMessage> {
-        return apiHelper.updatePassword(nic, password)
+    fun updatePassword(token: String, nic: String, oldPass: String, newPass:String):
+            Single<ResponseGeneralMessage> { return apiHelper.updatePassword(token, nic,
+        oldPass, newPass)
     }
 
     fun getTenantData(token:String): Single<ResponseTenantData> {

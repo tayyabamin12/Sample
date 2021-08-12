@@ -14,6 +14,7 @@ import com.safidence.safidence.MainActivity
 import com.safidence.safidence.R
 import com.safidence.safidence.data.api.ApiHelper
 import com.safidence.safidence.data.api.ApiServiceImpl
+import com.safidence.safidence.data.prefs.SavePref
 import com.safidence.safidence.ui.base.ViewModelFactory
 import com.safidence.safidence.ui.forgetpassword.ForgetPassActivity
 
@@ -29,6 +30,10 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setupViewModel()
         setContentView(R.layout.fragment_login)
+
+        if (SavePref(this).getAccessToken() != "")
+            openMainActivity()
+
         initViews()
         setupLoginObserver()
     }
@@ -51,6 +56,7 @@ class LoginActivity : AppCompatActivity() {
     private fun openMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
     private fun setupViewModel() {
@@ -64,8 +70,8 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel.getLoginResponse().observe(this, Observer{
             dismissDialog()
             if (it.success) {
+                SavePref(this).saveLogin(it)
                 openMainActivity()
-                finish()
             }else {
                 Toast.makeText(this, "Invalid username or password", Toast.LENGTH_LONG).show()
             }

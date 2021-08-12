@@ -7,7 +7,7 @@ interface ApiService {
 
     fun login(nic:String, password:String): Single<ResponseLogin>
     fun forgetPassword(nic:String): Single<ResponseGeneralMessage>
-    fun updatePassword(token:String, nic:String): Single<ResponseGeneralMessage>
+    fun updatePassword(token:String, nic:String, oldPass:String, newPass:String): Single<ResponseGeneralMessage>
     fun logout(token:String): Single<ResponseGeneralMessage>
     fun getTenantData(token:String): Single<ResponseTenantData>
     fun getRequestTypes(token:String): Single<ResponseRequestTypes>

@@ -24,7 +24,7 @@ class ForgetPassActivity : AppCompatActivity() {
         setupViewModel()
         setContentView(R.layout.fragment_forget_password)
         initViews()
-        setupLoginObserver()
+        setupObserver()
     }
 
     private fun initViews() {
@@ -43,10 +43,10 @@ class ForgetPassActivity : AppCompatActivity() {
         ).get(ForgetViewModel::class.java)
     }
 
-    private fun setupLoginObserver() {
+    private fun setupObserver() {
         forgetViewModel.getLoginResponse().observe(this, Observer{
             dismissDialog()
-            if (it.status.equals("success")) {
+            if (it.status == "success") {
                 Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
                 finish()
             }else {
