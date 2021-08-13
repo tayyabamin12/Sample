@@ -31,7 +31,7 @@ class MainRepository(private val apiHelper: ApiHelper) {
         return apiHelper.getTenantUnits(token)
     }
 
-    fun getTenantRequestStatus(token:String): Single<ResponseGeneralMessage> {
+    fun getTenantRequestStatus(token:String): Single<ResponseRequestStatus> {
         return apiHelper.getTenantRequestStatus(token)
     }
 

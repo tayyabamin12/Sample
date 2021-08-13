@@ -12,7 +12,7 @@ interface ApiService {
     fun getTenantData(token:String): Single<ResponseTenantData>
     fun getRequestTypes(token:String): Single<ResponseRequestTypes>
     fun getTenantUnits(token:String): Single<ResponseTenantUnits>
-    fun getTenantRequestStatus(token:String): Single<ResponseGeneralMessage>
+    fun getTenantRequestStatus(token:String): Single<ResponseRequestStatus>
     fun getTenantContractExpiry(token:String, unitId: Int): Single<ResponseTenantContractExpiry>
     fun tenantRequest(token:String, requestType: Int, subject:String, desc:String, priority:String,
                       availability:String, phone:String, unitId:Int,

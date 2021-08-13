@@ -69,12 +69,12 @@ class ApiServiceImpl : ApiService {
             .getObjectSingle(ResponseTenantUnits::class.java)
     }
 
-    override fun getTenantRequestStatus(token: String): Single<ResponseGeneralMessage> {
+    override fun getTenantRequestStatus(token: String): Single<ResponseRequestStatus> {
         return Rx2AndroidNetworking.get(baseUrl.plus("tenant_request_status"))
             .addHeaders("Accept", "application/json")
             .addHeaders("Authorization", "Bearer $token")
             .build()
-            .getObjectSingle(ResponseGeneralMessage::class.java)
+            .getObjectSingle(ResponseRequestStatus::class.java)
     }
 
     override fun getTenantContractExpiry(

@@ -10,7 +10,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class PasswordViewModel(private val mainRepository: MainRepository)   : ViewModel() {
+class PasswordViewModel(private val mainRepository: MainRepository) : ViewModel() {
 
     private val response = MutableLiveData<ResponseGeneralMessage>()
     private val exceptionResponse = MutableLiveData<String>()
