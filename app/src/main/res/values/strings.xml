@@ -15,6 +15,7 @@
     <string name="menu_payment">Payment History</string>
     <string name="menu_docs">Documents &amp; Policies</string>
     <string name="menu_change_password">Change Password</string>
+    <string name="menu_logout">Logout</string>
     <string name="home">Home</string>
     <string name="request">Request</string>
     <string name="payments">Payments</string>

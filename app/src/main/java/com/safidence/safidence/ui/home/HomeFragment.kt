@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.safidence.safidence.R
+import com.safidence.safidence.data.prefs.SavePref
 
 class HomeFragment : Fragment() {
 
@@ -17,6 +19,7 @@ class HomeFragment : Fragment() {
     private lateinit var cvPayment: CardView
     private lateinit var cvAnnoucements: CardView
     private lateinit var cvDocs: CardView
+    private lateinit var tvName: TextView
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -31,6 +34,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun initViews(root: View) {
+        tvName = root.findViewById(R.id.tv_title)
+        tvName.text = "Hello ".plus(SavePref(requireContext()).getUserName()).plus("!")
         cvRequest = root.findViewById(R.id.cv_request)
         cvPayment = root.findViewById(R.id.cv_Payments)
         cvAnnoucements = root.findViewById(R.id.cv_announcements)

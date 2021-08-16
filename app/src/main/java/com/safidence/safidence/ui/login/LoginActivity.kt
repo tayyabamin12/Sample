@@ -44,6 +44,11 @@ class LoginActivity : AppCompatActivity() {
         etPassword = findViewById(R.id.etPassword)
         tvForgetPass = findViewById(R.id.tvForgotPwd)
         loginBtn.setOnClickListener {
+            if (etCNIC.text.toString() == "" || etPassword.text.toString() == "") {
+                Toast.makeText(this, "Please provide valid national id or password",
+                    Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
             loginViewModel.login(etCNIC.text.toString(), etPassword.text.toString())
             showProgressDialog()
         }

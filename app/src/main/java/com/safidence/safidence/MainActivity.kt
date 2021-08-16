@@ -1,9 +1,10 @@
 package com.safidence.safidence
 
+import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
+import android.widget.Toast
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -13,17 +14,26 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.safidence.safidence.data.api.ApiHelper
+import com.safidence.safidence.data.api.ApiServiceImpl
+import com.safidence.safidence.data.prefs.SavePref
+import com.safidence.safidence.ui.base.ViewModelFactory
+import com.safidence.safidence.ui.login.LoginActivity
+import com.safidence.safidence.ui.main.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setupViewModel()
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -34,6 +44,17 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_home), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        navView.menu.findItem(R.id.nav_logout).setOnMenuItemClickListener {
+            if (it.itemId == R.id.nav_logout) {
+                drawerLayout.close()
+                mainViewModel.logout(SavePref(this).getAccessToken())
+                showProgressDialog()
+            }
+            true
+        }
+
+        setupLogoutObserver()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -45,5 +66,44 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    private fun setupViewModel() {
+        mainViewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(ApiHelper(ApiServiceImpl()))
+        ).get(MainViewModel::class.java)
+    }
+
+    private fun setupLogoutObserver() {
+        mainViewModel.getLogoutResponse().observe(this, Observer{
+            dismissDialog()
+            if (it.status == "success") {
+                logout()
+            }
+        })
+
+        mainViewModel.getExceptionResponse().observe(this, Observer {
+            dismissDialog()
+            Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+        })
+    }
+
+    private fun logout() {
+        SavePref(this).setAccessToken()
+        finish()
+        startActivity(Intent(this, LoginActivity::class.java))
+    }
+
+    private lateinit var progressDialog: ProgressDialog
+    private fun showProgressDialog(){
+        progressDialog = ProgressDialog(this)
+        progressDialog.setMessage(resources.getString(R.string.please_wait))
+        progressDialog.show()
+    }
+
+    private fun dismissDialog() {
+        if (progressDialog != null)
+            progressDialog.dismiss()
     }
 }

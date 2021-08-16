@@ -14,6 +14,10 @@ class MainRepository(private val apiHelper: ApiHelper) {
         return apiHelper.forgetPassword(nic)
     }
 
+    fun logout(token: String): Single<ResponseGeneralMessage> {
+        return apiHelper.logout(token)
+    }
+
     fun updatePassword(token: String, nic: String, oldPass: String, newPass:String):
             Single<ResponseGeneralMessage> { return apiHelper.updatePassword(token, nic,
         oldPass, newPass)
