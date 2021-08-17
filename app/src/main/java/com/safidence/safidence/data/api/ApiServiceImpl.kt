@@ -3,6 +3,7 @@ package com.safidence.safidence.data.api
 import com.rx2androidnetworking.Rx2AndroidNetworking
 import com.safidence.safidence.data.model.*
 import io.reactivex.Single
+import java.io.File
 
 class ApiServiceImpl : ApiService {
 
@@ -91,26 +92,26 @@ class ApiServiceImpl : ApiService {
 
     override fun tenantRequest(
         token: String,
-        requestType: Int,
+        requestId: Int,
         subject: String,
         desc: String,
         priority: String,
         availability: String,
         phone: String,
         unitId: Int,
-        media: String
+        media: File
     ): Single<ResponseGeneralMessage> {
-        return Rx2AndroidNetworking.post(baseUrl.plus("tenant_request"))
+        return Rx2AndroidNetworking.upload(baseUrl.plus("tenant_request"))
             .addHeaders("Accept", "application/json")
             .addHeaders("Authorization", "Bearer $token")
-            .addBodyParameter("type_id", requestType.toString())
-            .addBodyParameter("subject", subject)
-            .addBodyParameter("desc", desc)
-            .addBodyParameter("priority", priority)
-            .addBodyParameter("availability", availability)
-            .addBodyParameter("phone", phone)
-            .addBodyParameter("unitId", unitId.toString())
-            .addPathParameter("media", media)
+            .addMultipartParameter("type_id", requestId.toString())
+            .addMultipartParameter("subject", subject)
+            .addMultipartParameter("description", desc)
+            .addMultipartParameter("priority", priority)
+            .addMultipartParameter("availability", availability)
+            .addMultipartParameter("phone", phone)
+            .addMultipartParameter("unit_id", unitId.toString())
+            .addMultipartFile("media", media)
             .build()
             .getObjectSingle(ResponseGeneralMessage::class.java)
     }

@@ -11,11 +11,13 @@ import com.safidence.safidence.data.repository.MainRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.io.File
 
 class NewRequestViewModel(private val mainRepository: MainRepository) : ViewModel() {
 
     private val responseRequestTypes = MutableLiveData<ResponseRequestTypes>()
     private val responseTenantUnits = MutableLiveData<ResponseTenantUnits>()
+    private val uploadTenantRequest = MutableLiveData<ResponseGeneralMessage>()
     private val exceptionResponse = MutableLiveData<String>()
     private val compositeDisposable = CompositeDisposable()
 
@@ -47,6 +49,28 @@ class NewRequestViewModel(private val mainRepository: MainRepository) : ViewMode
         )
     }
 
+    fun tenantRequest(token: String,
+                      requestType: Int,
+                      subject: String,
+                      desc: String,
+                      priority: String,
+                      availability: String,
+                      phone: String,
+                      unitId: Int, media: File) {
+        compositeDisposable.add(
+            mainRepository.tenantRequest(token, requestType, subject, desc, priority, availability,
+                phone, unitId, media)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ items ->
+                    uploadTenantRequest.postValue(items)
+                }, { throwable ->
+                    Log.d("content view model", "exception")
+                    exceptionResponse.postValue(throwable.localizedMessage)
+                })
+        )
+    }
+
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.dispose()
@@ -58,6 +82,10 @@ class NewRequestViewModel(private val mainRepository: MainRepository) : ViewMode
 
     fun getResponseTenantUnits(): LiveData<ResponseTenantUnits> {
         return responseTenantUnits
+    }
+
+    fun getTenantRequestResponse(): LiveData<ResponseGeneralMessage> {
+        return uploadTenantRequest
     }
 
     fun getExceptionResponse(): LiveData<String> {

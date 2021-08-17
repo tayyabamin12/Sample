@@ -2,6 +2,7 @@ package com.safidence.safidence.data.api
 
 import com.safidence.safidence.data.model.*
 import io.reactivex.Single
+import java.io.File
 
 interface ApiService {
 
@@ -14,7 +15,7 @@ interface ApiService {
     fun getTenantUnits(token:String): Single<ResponseTenantUnits>
     fun getTenantRequestStatus(token:String): Single<ResponseRequestStatus>
     fun getTenantContractExpiry(token:String, unitId: Int): Single<ResponseTenantContractExpiry>
-    fun tenantRequest(token:String, requestType: Int, subject:String, desc:String, priority:String,
+    fun tenantRequest(token:String, requestId: Int, subject:String, desc:String, priority:String,
                       availability:String, phone:String, unitId:Int,
-                      media:String): Single<ResponseGeneralMessage>
+                      media:File): Single<ResponseGeneralMessage>
 }

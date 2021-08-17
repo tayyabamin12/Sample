@@ -1,13 +1,20 @@
 package com.safidence.safidence.ui.newrequest
 
+import android.app.Activity
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toFile
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.github.drjacky.imagepicker.ImagePicker
+import com.google.android.material.textfield.TextInputEditText
 import com.safidence.safidence.R
 import com.safidence.safidence.data.api.ApiHelper
 import com.safidence.safidence.data.api.ApiServiceImpl
@@ -15,6 +22,7 @@ import com.safidence.safidence.data.model.ResponseRequestTypes
 import com.safidence.safidence.data.model.ResponseTenantUnits
 import com.safidence.safidence.data.prefs.SavePref
 import com.safidence.safidence.ui.base.ViewModelFactory
+import java.io.File
 
 class NewRequestFragment : Fragment() {
 
@@ -22,6 +30,13 @@ class NewRequestFragment : Fragment() {
     private lateinit var catSpinner: AutoCompleteTextView
     private lateinit var unitsSpinner: AutoCompleteTextView
     private lateinit var prioritySpinner: AutoCompleteTextView
+    private lateinit var file: File
+    private lateinit var etUpload: TextInputEditText
+    private lateinit var etPhone: TextInputEditText
+    private lateinit var etAvailable: TextInputEditText
+    private lateinit var etDesc: TextInputEditText
+    private lateinit var etSub: TextInputEditText
+    private lateinit var btnSave: Button
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -54,8 +69,32 @@ class NewRequestFragment : Fragment() {
         catSpinner = root.findViewById(R.id.ac_tv_cat)
         unitsSpinner = root.findViewById(R.id.ac_tv_units)
         prioritySpinner = root.findViewById(R.id.ac_tv_priority)
+        etUpload = root.findViewById(R.id.et_upload)
+        etPhone = root.findViewById(R.id.et_no)
+        etAvailable = root.findViewById(R.id.et_availability)
+        etDesc = root.findViewById(R.id.et_desc)
+        etSub = root.findViewById(R.id.et_sub)
+        btnSave = root.findViewById(R.id.btn_save)
+
+        etUpload.setOnClickListener {
+            ImagePicker.with(requireActivity())
+                .crop()
+                .maxResultSize(1024, 1024, true)
+                .createIntentFromDialog { launcher.launch(it) }
+        }
+
+        btnSave.setOnClickListener {
+            val token = SavePref(requireContext()).getAccessToken()
+            val sub:String = etSub.text.toString()
+            val desc:String = etDesc.text.toString()
+            val available:String = etAvailable.text.toString()
+            val phone:String = etPhone.text.toString()
+            newRequestViewModel.tenantRequest(token, catId, sub, desc, priorityValue, available, phone, unitId, file)
+            showProgressDialog()
+        }
     }
 
+    private var catId = 0
     private fun setCatSpinner(selections: ResponseRequestTypes) {
 
         val catTitles = ArrayList<String>()
@@ -66,15 +105,14 @@ class NewRequestFragment : Fragment() {
         val adapter = ArrayAdapter(requireContext(),
             android.R.layout.simple_spinner_dropdown_item, catTitles)
         catSpinner.setAdapter(adapter)
-        catSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
 
+        catSpinner.onItemClickListener =
+            AdapterView.OnItemClickListener { p0, p1, position, p3 ->
+                catId = selections.body[position].id
             }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
     }
 
+    var unitId = 0
     private fun setUnitsSpinner(selections: ResponseTenantUnits) {
 
         val unitTitles = ArrayList<String>()
@@ -85,28 +123,23 @@ class NewRequestFragment : Fragment() {
         val adapter = ArrayAdapter(requireContext(),
             android.R.layout.simple_spinner_dropdown_item, unitTitles)
         unitsSpinner.setAdapter(adapter)
-        unitsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-
+        unitsSpinner.onItemClickListener =
+            AdapterView.OnItemClickListener { p0, p1, position, p3 ->
+                unitId = selections.body[position].id
             }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
     }
 
+    var priorityValue = ""
     private fun setPrioritySpinner() {
         val selections = arrayOf("Routine", "Urgent")
 
         val adapter = ArrayAdapter(requireContext(),
             android.R.layout.simple_spinner_dropdown_item, selections)
         prioritySpinner.setAdapter(adapter)
-        prioritySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-
+        prioritySpinner.onItemClickListener =
+            AdapterView.OnItemClickListener { p0, p1, position, p3 ->
+                priorityValue = selections[position]
             }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
     }
 
     private fun setupObserver() {
@@ -122,8 +155,38 @@ class NewRequestFragment : Fragment() {
             }
         })
 
+        newRequestViewModel.getTenantRequestResponse().observe(viewLifecycleOwner, Observer{
+            dismissDialog()
+            if (it.status == "success") {
+                Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                findNavController().navigateUp()
+            }
+        })
+
         newRequestViewModel.getExceptionResponse().observe(viewLifecycleOwner, Observer {
+            dismissDialog()
             Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
         })
+    }
+
+    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == Activity.RESULT_OK) {
+            val uri = it.data?.data!!
+            // Use the uri to load the image
+            etUpload.setText(uri.toString())
+            file = uri.toFile()
+        }
+    }
+
+    private lateinit var progressDialog: ProgressDialog
+    private fun showProgressDialog(){
+        progressDialog = ProgressDialog(requireContext())
+        progressDialog.setMessage(resources.getString(R.string.please_wait))
+        progressDialog.show()
+    }
+
+    private fun dismissDialog() {
+        if (progressDialog != null)
+            progressDialog.dismiss()
     }
 }

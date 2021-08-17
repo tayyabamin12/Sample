@@ -51,4 +51,6 @@ dependencies {
 
     //RX2 Android Networking
     implementation 'com.amitshekhar.android:rx2-android-networking:1.0.2'
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    implementation 'com.github.Drjacky:ImagePicker:2.1.11'
 }

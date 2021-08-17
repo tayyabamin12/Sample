@@ -3,6 +3,7 @@ package com.safidence.safidence.data.repository
 import com.safidence.safidence.data.api.ApiHelper
 import com.safidence.safidence.data.model.*
 import io.reactivex.Single
+import java.io.File
 
 class MainRepository(private val apiHelper: ApiHelper) {
 
@@ -49,7 +50,7 @@ class MainRepository(private val apiHelper: ApiHelper) {
                       priority: String,
                       availability: String,
                       phone: String,
-                      unitId: Int, media: String): Single<ResponseGeneralMessage> {
+                      unitId: Int, media: File): Single<ResponseGeneralMessage> {
         return apiHelper.tenantRequest(token, requestType, subject, desc,
             priority, availability, phone, unitId, media)
     }

@@ -1,5 +1,7 @@
 package com.safidence.safidence.data.api
 
+import java.io.File
+
 class ApiHelper(private val apiService: ApiService) {
 
     fun login(nic: String, password: String) = apiService.login(nic, password)
@@ -13,7 +15,7 @@ class ApiHelper(private val apiService: ApiService) {
     fun getTenantRequestStatus(token: String) = apiService.getTenantRequestStatus(token)
     fun getTenantContractExpiry(token: String, unitId:Int) = apiService.getTenantContractExpiry(token, unitId)
     fun tenantRequest(token:String, requestType: Int, subject:String, desc:String, priority:String,
-                      availability:String, phone:String, unitId:Int, media:String) =
+                      availability:String, phone:String, unitId:Int, media: File) =
         apiService.tenantRequest(token, requestType, subject, desc, priority, availability,
             phone, unitId, media)
 }
