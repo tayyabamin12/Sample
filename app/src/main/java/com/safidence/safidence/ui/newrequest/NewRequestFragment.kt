@@ -77,6 +77,7 @@ class NewRequestFragment : Fragment() {
         btnSave = root.findViewById(R.id.btn_save)
 
         etUpload.setOnClickListener {
+            updateErrorFields()
             ImagePicker.with(requireActivity())
                 .crop()
                 .maxResultSize(1024, 1024, true)
@@ -84,11 +85,14 @@ class NewRequestFragment : Fragment() {
         }
 
         btnSave.setOnClickListener {
+            updateErrorFields()
             val token = SavePref(requireContext()).getAccessToken()
             val sub:String = etSub.text.toString()
             val desc:String = etDesc.text.toString()
             val available:String = etAvailable.text.toString()
             val phone:String = etPhone.text.toString()
+            if (!setErrorFields(sub, desc, available, phone))
+                return@setOnClickListener
             newRequestViewModel.tenantRequest(token, catId, sub, desc, priorityValue, available, phone, unitId, file)
             showProgressDialog()
         }
@@ -109,6 +113,7 @@ class NewRequestFragment : Fragment() {
         catSpinner.onItemClickListener =
             AdapterView.OnItemClickListener { p0, p1, position, p3 ->
                 catId = selections.body[position].id
+                updateErrorFields()
             }
     }
 
@@ -126,6 +131,7 @@ class NewRequestFragment : Fragment() {
         unitsSpinner.onItemClickListener =
             AdapterView.OnItemClickListener { p0, p1, position, p3 ->
                 unitId = selections.body[position].id
+                updateErrorFields()
             }
     }
 
@@ -139,6 +145,7 @@ class NewRequestFragment : Fragment() {
         prioritySpinner.onItemClickListener =
             AdapterView.OnItemClickListener { p0, p1, position, p3 ->
                 priorityValue = selections[position]
+                updateErrorFields()
             }
     }
 
@@ -188,5 +195,55 @@ class NewRequestFragment : Fragment() {
     private fun dismissDialog() {
         if (progressDialog != null)
             progressDialog.dismiss()
+    }
+
+    private fun updateErrorFields() {
+        catSpinner.error = null
+        unitsSpinner.error = null
+        prioritySpinner.error = null
+        etSub.error = null
+        etDesc.error = null
+        etAvailable.error = null
+        etPhone.error = null
+        etUpload.error = null
+    }
+
+    private fun setErrorFields(sub: String, desc: String, avail: String,
+                               phone: String): Boolean {
+        when {
+            catId == 0 -> {
+                catSpinner.error = "* Required"
+                return false
+            }
+            unitId == 0 -> {
+                unitsSpinner.error = "* Required"
+                return false
+            }
+            sub == "" -> {
+                etSub.error = "* Required"
+                return false
+            }
+            desc == "" -> {
+                etDesc.error = "* Required"
+                return false
+            }
+            priorityValue == "" -> {
+                prioritySpinner.error = "* Required"
+                return false
+            }
+            avail == "" -> {
+                etAvailable.error = "* Required"
+                return false
+            }
+            phone == "" -> {
+                etPhone.error = "* Required"
+                return false
+            }
+            !this::file.isInitialized -> {
+                etUpload.error = "* Required"
+                return false
+            }
+            else -> return true
+        }
     }
 }
