@@ -54,7 +54,7 @@
 
     <fragment
         android:id="@+id/nav_announcements"
-        android:name="com.safidence.safidence.ui.announcement.AnnouncementsFragment"
+        android:name="com.safidence.safidence.ui.announcement.AlertsFragment"
         android:label="Announcements"
         tools:layout="@layout/fragment_announcements" />
 

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.safidence.safidence.data.model.ResponseGeneralMessage
 import com.safidence.safidence.data.model.ResponseTenantContractExpiry
 import com.safidence.safidence.data.model.ResponseTenantUnits
 import com.safidence.safidence.data.repository.MainRepository
@@ -15,6 +16,7 @@ class EndContractViewModel(private val mainRepository: MainRepository) : ViewMod
 
     private val responseTenantUnits = MutableLiveData<ResponseTenantUnits>()
     private val responseTenantContractExpiry = MutableLiveData<ResponseTenantContractExpiry>()
+    private val responseContractRequest = MutableLiveData<ResponseGeneralMessage>()
     private val exceptionResponse = MutableLiveData<String>()
     private val compositeDisposable = CompositeDisposable()
 
@@ -46,6 +48,21 @@ class EndContractViewModel(private val mainRepository: MainRepository) : ViewMod
         )
     }
 
+    fun contractRequest(token: String, expiryDate: String, date: String, unitId: Int,
+                        isRenew: Boolean) {
+        compositeDisposable.add(
+            mainRepository.contractRequest(token, expiryDate, date, unitId, isRenew)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ items ->
+                    responseContractRequest.postValue(items)
+                }, { throwable ->
+                    Log.d("content view model", "exception")
+                    exceptionResponse.postValue(throwable.localizedMessage)
+                })
+        )
+    }
+
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.dispose()
@@ -57,6 +74,10 @@ class EndContractViewModel(private val mainRepository: MainRepository) : ViewMod
 
     fun getResponseTenantContractExpiry(): LiveData<ResponseTenantContractExpiry> {
         return responseTenantContractExpiry
+    }
+
+    fun getResponseContractRequest(): LiveData<ResponseGeneralMessage> {
+        return responseContractRequest
     }
 
     fun getExceptionResponse(): LiveData<String> {

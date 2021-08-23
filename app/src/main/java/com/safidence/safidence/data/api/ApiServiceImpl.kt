@@ -151,4 +151,34 @@ class ApiServiceImpl : ApiService {
             .build()
             .getObjectSingle(ResponseAllDocuments::class.java)
     }
+
+    override fun getTenantAlerts(token: String): Single<ResponseAlerts> {
+        return Rx2AndroidNetworking.get(baseUrl.plus("tenant_alerts"))
+            .addHeaders("Accept", "application/json")
+            .addHeaders("Authorization", "Bearer $token")
+            .build()
+            .getObjectSingle(ResponseAlerts::class.java)
+    }
+
+    override fun contractRequest(
+        token: String,
+        expiryDate: String,
+        date: String,
+        unitId: Int,
+        isRenew: Boolean
+    ): Single<ResponseGeneralMessage> {
+        val response = Rx2AndroidNetworking.post(baseUrl.plus("contract_request"))
+            .addHeaders("Accept", "application/json")
+            .addHeaders("Authorization", "Bearer $token")
+            .addBodyParameter("current_expiry", expiryDate)
+            .addBodyParameter("unit_id", unitId.toString())
+        if (isRenew){
+            response.addBodyParameter("request_type", "renew_contract")
+            response.addBodyParameter("renew_till", date)
+        }else {
+            response.addBodyParameter("request_type", "end_contract")
+            response.addBodyParameter("end_date", date)
+        }
+        return  response.build().getObjectSingle(ResponseGeneralMessage::class.java)
+    }
 }

@@ -67,4 +67,13 @@ class MainRepository(private val apiHelper: ApiHelper) {
     fun getAllDocs(token:String): Single<ResponseAllDocuments> {
         return apiHelper.getAllDocs(token)
     }
+
+    fun getTenantAlerts(token:String): Single<ResponseAlerts> {
+        return apiHelper.getTenantAlerts(token)
+    }
+
+    fun contractRequest(token: String, expiryDate: String, date: String, unitId: Int,
+                        isRenew: Boolean): Single<ResponseGeneralMessage> {
+        return apiHelper.contractRequest(token, expiryDate, date, unitId, isRenew)
+    }
 }

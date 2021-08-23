@@ -1,17 +1,16 @@
 package com.safidence.safidence.ui.end
 
+import android.app.DatePickerDialog
 import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.safidence.safidence.R
 import com.safidence.safidence.data.api.ApiHelper
@@ -19,12 +18,16 @@ import com.safidence.safidence.data.api.ApiServiceImpl
 import com.safidence.safidence.data.model.ResponseTenantUnits
 import com.safidence.safidence.data.prefs.SavePref
 import com.safidence.safidence.ui.base.ViewModelFactory
+import java.util.*
+import kotlin.collections.ArrayList
 
-class EndContractFragment : Fragment() {
+class EndContractFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     private lateinit var endContractViewModel: EndContractViewModel
     private lateinit var unitsSpinner: AutoCompleteTextView
     private lateinit var etDate: TextInputEditText
+    private lateinit var etEndDate: TextInputEditText
+    private lateinit var btnSubmit: Button
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -54,6 +57,22 @@ class EndContractFragment : Fragment() {
     private fun initViews(root: View) {
         unitsSpinner = root.findViewById(R.id.ac_tv_units)
         etDate = root.findViewById(R.id.et_date)
+        etEndDate = root.findViewById(R.id.et_last_date)
+        btnSubmit = root.findViewById(R.id.btn_create_request)
+
+        etEndDate.setOnClickListener {
+            updateErrorFields()
+            selectTime()
+        }
+
+        btnSubmit.setOnClickListener {
+            updateErrorFields()
+            if (!setErrorFields(etDate.text.toString(), etEndDate.text.toString()))
+                return@setOnClickListener
+            endContractViewModel.contractRequest(SavePref(requireContext()).getAccessToken(),
+                etDate.text.toString(), etEndDate.text.toString(), unitId, false)
+            showProgressDialog()
+        }
     }
 
     private fun setupObserver() {
@@ -70,11 +89,21 @@ class EndContractFragment : Fragment() {
             }
         })
 
+        endContractViewModel.getResponseContractRequest().observe(viewLifecycleOwner, Observer{
+            dismissDialog()
+            if (it.status == "success") {
+                Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                findNavController().navigateUp()
+            }
+        })
+
         endContractViewModel.getExceptionResponse().observe(viewLifecycleOwner, Observer {
+            dismissDialog()
             Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
         })
     }
 
+    private var unitId = 0
     private fun setUnitsSpinner(selections: ResponseTenantUnits) {
         val unitTitles = ArrayList<String>()
         for (item in selections.body) {
@@ -87,8 +116,8 @@ class EndContractFragment : Fragment() {
         unitsSpinner.onItemClickListener =
             AdapterView.OnItemClickListener { p0, p1, position, p3 ->
                 val token = SavePref(requireContext()).getAccessToken()
-                val userId = selections.body[position].id
-                endContractViewModel.getTenantContractExpiry(token, userId)
+                unitId = selections.body[position].id
+                endContractViewModel.getTenantContractExpiry(token, unitId)
                 showProgressDialog()
             }
     }
@@ -103,5 +132,44 @@ class EndContractFragment : Fragment() {
     private fun dismissDialog() {
         if (progressDialog != null)
             progressDialog.dismiss()
+    }
+
+    private fun selectTime() {
+        val calendar: Calendar = Calendar.getInstance()
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val month = calendar.get(Calendar.MONTH)
+        val year = calendar.get(Calendar.YEAR)
+        val datePickerDialog =
+            DatePickerDialog(requireContext(), this@EndContractFragment, year, month,day)
+        datePickerDialog.show()
+    }
+
+    override fun onDateSet(p0: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        etEndDate.setText("$year-$month-$dayOfMonth")
+    }
+
+
+    private fun updateErrorFields() {
+        unitsSpinner.error = null
+        etDate.error = null
+        etEndDate.error = null
+    }
+
+    private fun setErrorFields(date: String, endDate: String): Boolean {
+        when {
+            unitId == 0 -> {
+                unitsSpinner.error = "* Required"
+                return false
+            }
+            date == "" -> {
+                etDate.error = "* Required"
+                return false
+            }
+            endDate == "" -> {
+                etEndDate.error = "* Required"
+                return false
+            }
+            else -> return true
+        }
     }
 }

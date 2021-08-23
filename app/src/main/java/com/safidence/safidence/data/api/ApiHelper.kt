@@ -22,4 +22,8 @@ class ApiHelper(private val apiService: ApiService) {
     fun uploadDoc(token: String, docId: Int, num: String, country: String, date: String,
                   media: File) = apiService.uploadDoc(token, docId, num, country, date, media)
     fun getAllDocs(token: String) = apiService.getAllDocs(token)
+    fun getTenantAlerts(token: String) = apiService.getTenantAlerts(token)
+    fun contractRequest(token: String, expiryDate: String, date: String, unitId: Int,
+                        isRenew: Boolean) = apiService.contractRequest(token, expiryDate, date,
+        unitId, isRenew)
 }

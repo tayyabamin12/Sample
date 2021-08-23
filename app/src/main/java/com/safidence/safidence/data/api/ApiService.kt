@@ -22,4 +22,7 @@ interface ApiService {
     fun uploadDoc(token:String, docId: Int, num:String, country:String, date:String,
                       media:File): Single<ResponseGeneralMessage>
     fun getAllDocs(token:String): Single<ResponseAllDocuments>
+    fun getTenantAlerts(token:String): Single<ResponseAlerts>
+    fun contractRequest(token:String, expiryDate:String, date:String,
+                      unitId:Int, isRenew: Boolean): Single<ResponseGeneralMessage>
 }
