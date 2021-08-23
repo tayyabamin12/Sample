@@ -1,8 +1,11 @@
 package com.safidence.safidence.ui.newrequest
 
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.app.ProgressDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,8 +26,11 @@ import com.safidence.safidence.data.model.ResponseTenantUnits
 import com.safidence.safidence.data.prefs.SavePref
 import com.safidence.safidence.ui.base.ViewModelFactory
 import java.io.File
+import java.util.*
+import kotlin.collections.ArrayList
 
-class NewRequestFragment : Fragment() {
+class NewRequestFragment : Fragment(), DatePickerDialog.OnDateSetListener,
+    TimePickerDialog.OnTimeSetListener {
 
     private lateinit var newRequestViewModel: NewRequestViewModel
     private lateinit var catSpinner: AutoCompleteTextView
@@ -75,6 +81,10 @@ class NewRequestFragment : Fragment() {
         etDesc = root.findViewById(R.id.et_desc)
         etSub = root.findViewById(R.id.et_sub)
         btnSave = root.findViewById(R.id.btn_save)
+
+        etAvailable.setOnClickListener {
+            selectTime()
+        }
 
         etUpload.setOnClickListener {
             updateErrorFields()
@@ -137,7 +147,7 @@ class NewRequestFragment : Fragment() {
 
     var priorityValue = ""
     private fun setPrioritySpinner() {
-        val selections = arrayOf("Routine", "Urgent")
+        val selections = arrayOf("Normal", "Urgent")
 
         val adapter = ArrayAdapter(requireContext(),
             android.R.layout.simple_spinner_dropdown_item, selections)
@@ -245,5 +255,36 @@ class NewRequestFragment : Fragment() {
             }
             else -> return true
         }
+    }
+
+
+    private var requestDay = 0
+    private var requestMonth: Int = 0
+    private var requestYear: Int = 0
+    private fun selectTime() {
+        val calendar: Calendar = Calendar.getInstance()
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val month = calendar.get(Calendar.MONTH)
+        val year = calendar.get(Calendar.YEAR)
+        val datePickerDialog =
+            DatePickerDialog(requireContext(), this@NewRequestFragment, year, month,day)
+        datePickerDialog.show()
+    }
+
+    override fun onDateSet(p0: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        requestDay = dayOfMonth
+        requestYear = year
+        requestMonth = month
+        val calendar: Calendar = Calendar.getInstance()
+        val hour = calendar.get(Calendar.HOUR)
+        val minute = calendar.get(Calendar.MINUTE)
+        val timePickerDialog = TimePickerDialog(requireContext(), this@NewRequestFragment,
+            hour, minute,
+            DateFormat.is24HourFormat(requireContext()))
+        timePickerDialog.show()
+    }
+
+    override fun onTimeSet(p0: TimePicker?, hourOfDay: Int, minute: Int) {
+        etAvailable.setText("$requestYear-$requestMonth-$requestDay $hourOfDay:$minute")
     }
 }
