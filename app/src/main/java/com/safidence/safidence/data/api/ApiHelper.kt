@@ -18,4 +18,8 @@ class ApiHelper(private val apiService: ApiService) {
                       availability:String, phone:String, unitId:Int, media: File) =
         apiService.tenantRequest(token, requestType, subject, desc, priority, availability,
             phone, unitId, media)
+    fun getDocTypes(token: String) = apiService.getDocTypes(token)
+    fun uploadDoc(token: String, docId: Int, num: String, country: String, date: String,
+                  media: File) = apiService.uploadDoc(token, docId, num, country, date, media)
+    fun getAllDocs(token: String) = apiService.getAllDocs(token)
 }

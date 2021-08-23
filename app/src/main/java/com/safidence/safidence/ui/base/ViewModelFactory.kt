@@ -5,10 +5,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.safidence.safidence.data.api.ApiHelper
 import com.safidence.safidence.data.repository.MainRepository
 import com.safidence.safidence.ui.changepassword.PasswordViewModel
+import com.safidence.safidence.ui.docs.DocsViewModel
 import com.safidence.safidence.ui.end.EndContractViewModel
 import com.safidence.safidence.ui.forgetpassword.ForgetViewModel
 import com.safidence.safidence.ui.login.LoginViewModel
 import com.safidence.safidence.ui.main.MainViewModel
+import com.safidence.safidence.ui.newdoc.NewDocViewModel
 import com.safidence.safidence.ui.newrequest.NewRequestViewModel
 import com.safidence.safidence.ui.profile.ProfileViewModel
 import com.safidence.safidence.ui.renew.RenewContractViewModel
@@ -44,6 +46,12 @@ class ViewModelFactory(private val apiHelper: ApiHelper) : ViewModelProvider.Fac
             }
             modelClass.isAssignableFrom(EndContractViewModel::class.java) -> {
                 EndContractViewModel(MainRepository(apiHelper)) as T
+            }
+            modelClass.isAssignableFrom(NewDocViewModel::class.java) -> {
+                NewDocViewModel(MainRepository(apiHelper)) as T
+            }
+            modelClass.isAssignableFrom(DocsViewModel::class.java) -> {
+                DocsViewModel(MainRepository(apiHelper)) as T
             }
             else -> throw IllegalArgumentException("Unknown class name")
         }

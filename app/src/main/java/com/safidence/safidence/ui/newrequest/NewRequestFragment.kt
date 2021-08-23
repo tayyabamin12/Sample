@@ -83,6 +83,7 @@ class NewRequestFragment : Fragment(), DatePickerDialog.OnDateSetListener,
         btnSave = root.findViewById(R.id.btn_save)
 
         etAvailable.setOnClickListener {
+            updateErrorFields()
             selectTime()
         }
 

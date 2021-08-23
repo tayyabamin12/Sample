@@ -115,4 +115,40 @@ class ApiServiceImpl : ApiService {
             .build()
             .getObjectSingle(ResponseGeneralMessage::class.java)
     }
+
+    override fun getDocTypes(token: String): Single<ResponseDocTypes> {
+        return Rx2AndroidNetworking.get(baseUrl.plus("document_types"))
+            .addHeaders("Accept", "application/json")
+            .addHeaders("Authorization", "Bearer $token")
+            .build()
+            .getObjectSingle(ResponseDocTypes::class.java)
+    }
+
+    override fun uploadDoc(
+        token: String,
+        docId: Int,
+        num: String,
+        country: String,
+        date: String,
+        media: File
+    ): Single<ResponseGeneralMessage> {
+        return Rx2AndroidNetworking.upload(baseUrl.plus("document_upload"))
+            .addHeaders("Accept", "application/json")
+            .addHeaders("Authorization", "Bearer $token")
+            .addMultipartParameter("document_id", docId.toString())
+            .addMultipartParameter("number", num)
+            .addMultipartParameter("issue_country", country)
+            .addMultipartParameter("expiry_date", date)
+            .addMultipartFile("image", media)
+            .build()
+            .getObjectSingle(ResponseGeneralMessage::class.java)
+    }
+
+    override fun getAllDocs(token: String): Single<ResponseAllDocuments> {
+        return Rx2AndroidNetworking.get(baseUrl.plus("all_documents"))
+            .addHeaders("Accept", "application/json")
+            .addHeaders("Authorization", "Bearer $token")
+            .build()
+            .getObjectSingle(ResponseAllDocuments::class.java)
+    }
 }

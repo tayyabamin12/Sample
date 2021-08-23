@@ -54,4 +54,17 @@ class MainRepository(private val apiHelper: ApiHelper) {
         return apiHelper.tenantRequest(token, requestType, subject, desc,
             priority, availability, phone, unitId, media)
     }
+
+    fun getDocTypes(token:String): Single<ResponseDocTypes> {
+        return apiHelper.getDocTypes(token)
+    }
+
+    fun uploadDoc(token: String, docId: Int, num: String, country: String,
+                  date: String, media: File): Single<ResponseGeneralMessage>  {
+        return apiHelper.uploadDoc(token, docId, num, country, date, media)
+    }
+
+    fun getAllDocs(token:String): Single<ResponseAllDocuments> {
+        return apiHelper.getAllDocs(token)
+    }
 }

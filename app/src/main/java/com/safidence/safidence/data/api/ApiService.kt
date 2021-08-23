@@ -18,4 +18,8 @@ interface ApiService {
     fun tenantRequest(token:String, requestId: Int, subject:String, desc:String, priority:String,
                       availability:String, phone:String, unitId:Int,
                       media:File): Single<ResponseGeneralMessage>
+    fun getDocTypes(token:String): Single<ResponseDocTypes>
+    fun uploadDoc(token:String, docId: Int, num:String, country:String, date:String,
+                      media:File): Single<ResponseGeneralMessage>
+    fun getAllDocs(token:String): Single<ResponseAllDocuments>
 }
