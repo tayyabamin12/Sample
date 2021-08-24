@@ -181,4 +181,13 @@ class ApiServiceImpl : ApiService {
         }
         return  response.build().getObjectSingle(ResponseGeneralMessage::class.java)
     }
+
+    override fun getTenantUnitDetails(token: String, unitId: Int): Single<ResponseUnitDetails> {
+        return Rx2AndroidNetworking.get(baseUrl.plus("tenant_unit_details/{unit_id}"))
+            .addHeaders("Accept", "application/json")
+            .addHeaders("Authorization", "Bearer $token")
+            .addPathParameter("unit_id", unitId.toString())
+            .build()
+            .getObjectSingle(ResponseUnitDetails::class.java)
+    }
 }

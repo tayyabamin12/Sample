@@ -25,4 +25,5 @@ interface ApiService {
     fun getTenantAlerts(token:String): Single<ResponseAlerts>
     fun contractRequest(token:String, expiryDate:String, date:String,
                       unitId:Int, isRenew: Boolean): Single<ResponseGeneralMessage>
+    fun getTenantUnitDetails(token:String, unitId: Int): Single<ResponseUnitDetails>
 }

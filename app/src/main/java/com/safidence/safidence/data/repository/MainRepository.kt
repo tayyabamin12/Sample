@@ -76,4 +76,8 @@ class MainRepository(private val apiHelper: ApiHelper) {
                         isRenew: Boolean): Single<ResponseGeneralMessage> {
         return apiHelper.contractRequest(token, expiryDate, date, unitId, isRenew)
     }
+
+    fun getTenantUnitDetails(token:String, unitId: Int): Single<ResponseUnitDetails> {
+        return apiHelper.getTenantUnitDetails(token, unitId)
+    }
 }

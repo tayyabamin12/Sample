@@ -14,6 +14,7 @@ import com.safidence.safidence.ui.main.MainViewModel
 import com.safidence.safidence.ui.newdoc.NewDocViewModel
 import com.safidence.safidence.ui.newrequest.NewRequestViewModel
 import com.safidence.safidence.ui.profile.ProfileViewModel
+import com.safidence.safidence.ui.property.PropertyViewModel
 import com.safidence.safidence.ui.renew.RenewContractViewModel
 import com.safidence.safidence.ui.request.RequestViewModel
 
@@ -56,6 +57,9 @@ class ViewModelFactory(private val apiHelper: ApiHelper) : ViewModelProvider.Fac
             }
             modelClass.isAssignableFrom(AlertsViewModel::class.java) -> {
                 AlertsViewModel(MainRepository(apiHelper)) as T
+            }
+            modelClass.isAssignableFrom(PropertyViewModel::class.java) -> {
+                PropertyViewModel(MainRepository(apiHelper)) as T
             }
             else -> throw IllegalArgumentException("Unknown class name")
         }
