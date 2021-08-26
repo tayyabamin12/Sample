@@ -9,24 +9,23 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.textfield.TextInputEditText
 import com.safidence.safidence.R
 import com.safidence.safidence.data.api.ApiHelper
 import com.safidence.safidence.data.api.ApiServiceImpl
 import com.safidence.safidence.data.model.ResponseTenantUnits
 import com.safidence.safidence.data.model.ResponseUnitDetails
 import com.safidence.safidence.data.prefs.SavePref
+import com.safidence.safidence.databinding.FragmentPropertyBinding
 import com.safidence.safidence.ui.base.ViewModelFactory
 
 class PropertyFragment : Fragment() {
 
     private lateinit var propertyViewModel: PropertyViewModel
-    private lateinit var unitsSpinner: AutoCompleteTextView
-    private lateinit var etBuildingName: TextInputEditText
-    private lateinit var etAccommodation: TextInputEditText
-    private lateinit var etSpace: TextInputEditText
-    private lateinit var etParking: TextInputEditText
-    private lateinit var etAddress: TextInputEditText
+    private var _binding: FragmentPropertyBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -34,14 +33,13 @@ class PropertyFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         setupViewModel()
-        propertyViewModel =
-                ViewModelProvider(this).get(PropertyViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_property, container, false)
-        initViews(root)
+
+        _binding = FragmentPropertyBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+
         setupObserver()
 
         propertyViewModel.getTenantUnits(SavePref(requireContext()).getAccessToken())
-
         return root
     }
 
@@ -50,15 +48,6 @@ class PropertyFragment : Fragment() {
             this,
             ViewModelFactory(ApiHelper(ApiServiceImpl()))
         ).get(PropertyViewModel::class.java)
-    }
-
-    private fun initViews(root:View) {
-        unitsSpinner = root.findViewById(R.id.ac_tv_units)
-        etBuildingName = root.findViewById(R.id.et_bname)
-        etAccommodation = root.findViewById(R.id.et_accommodation)
-        etSpace = root.findViewById(R.id.et_space)
-        etParking = root.findViewById(R.id.et_parking)
-        etAddress = root.findViewById(R.id.et_address)
     }
 
     private fun setupObserver() {
@@ -83,11 +72,11 @@ class PropertyFragment : Fragment() {
 
     private fun setContent(it:ResponseUnitDetails) {
         try {
-            etBuildingName.setText(it.body[0].buliding.name)
-            etAccommodation.setText("Yes")
-            etSpace.setText(it.body[0].space)
-            etParking.setText(it.body[0].parking.toString())
-            etAddress.setText(it.body[0].buliding.address)
+            binding.etBname.setText(it.body[0].buliding.name)
+            binding.etAccommodation.setText("Yes")
+            binding.etSpace.setText(it.body[0].space)
+            binding.etParking.setText(it.body[0].parking.toString())
+            binding.etAddress.setText(it.body[0].buliding.address)
         } catch (e: Exception) {
         }
     }
@@ -101,8 +90,8 @@ class PropertyFragment : Fragment() {
 
         val adapter = ArrayAdapter(requireContext(),
             android.R.layout.simple_spinner_dropdown_item, unitTitles)
-        unitsSpinner.setAdapter(adapter)
-        unitsSpinner.onItemClickListener =
+        binding.acTvUnits.setAdapter(adapter)
+        binding.acTvUnits.onItemClickListener =
             AdapterView.OnItemClickListener { p0, p1, position, p3 ->
                 val token = SavePref(requireContext()).getAccessToken()
                 unitId = selections.body[position].id
@@ -121,5 +110,10 @@ class PropertyFragment : Fragment() {
     private fun dismissDialog() {
         if (this::progressDialog.isInitialized && progressDialog != null)
             progressDialog.dismiss()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

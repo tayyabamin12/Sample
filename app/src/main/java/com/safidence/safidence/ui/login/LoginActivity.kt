@@ -3,33 +3,36 @@ package com.safidence.safidence.ui.login
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.textfield.TextInputEditText
 import com.safidence.safidence.MainActivity
 import com.safidence.safidence.R
 import com.safidence.safidence.data.api.ApiHelper
 import com.safidence.safidence.data.api.ApiServiceImpl
 import com.safidence.safidence.data.prefs.SavePref
+import com.safidence.safidence.databinding.FragmentLoginBinding
 import com.safidence.safidence.ui.base.ViewModelFactory
 import com.safidence.safidence.ui.forgetpassword.ForgetPassActivity
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var loginBtn: Button
-    private lateinit var etCNIC: TextInputEditText
-    private lateinit var etPassword: TextInputEditText
-    private lateinit var tvForgetPass: TextView
     private lateinit var loginViewModel: LoginViewModel
+    private var _binding: FragmentLoginBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupViewModel()
-        setContentView(R.layout.fragment_login)
+
+        _binding = FragmentLoginBinding.inflate(layoutInflater)
+        val root: View = binding.root
+        setContentView(root)
 
         if (SavePref(this).getAccessToken() != "")
             openMainActivity()
@@ -39,21 +42,17 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        loginBtn = findViewById(R.id.btnLogin)
-        etCNIC = findViewById(R.id.etNationalId)
-        etPassword = findViewById(R.id.etPassword)
-        tvForgetPass = findViewById(R.id.tvForgotPwd)
-        loginBtn.setOnClickListener {
-            if (etCNIC.text.toString() == "" || etPassword.text.toString() == "") {
+        binding.btnLogin.setOnClickListener {
+            if (binding.etNationalId.text.toString() == "" || binding.etPassword.text.toString() == "") {
                 Toast.makeText(this, "Please provide valid national id or password",
                     Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
-            loginViewModel.login(etCNIC.text.toString(), etPassword.text.toString())
+            loginViewModel.login(binding.etNationalId.text.toString(), binding.etPassword.text.toString())
             showProgressDialog()
         }
 
-        tvForgetPass.setOnClickListener {
+        binding.tvForgotPwd.setOnClickListener {
             startActivity(Intent(this, ForgetPassActivity::class.java))
         }
     }
@@ -98,5 +97,10 @@ class LoginActivity : AppCompatActivity() {
     private fun dismissDialog() {
         if (progressDialog != null)
             progressDialog.dismiss()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

@@ -6,27 +6,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.safidence.safidence.R
-import com.safidence.safidence.adapters.RequestAdapter
 import com.safidence.safidence.adapters.RequestStatusAdapter
 import com.safidence.safidence.data.api.ApiHelper
 import com.safidence.safidence.data.api.ApiServiceImpl
 import com.safidence.safidence.data.model.RequestStatusBody
 import com.safidence.safidence.data.prefs.SavePref
+import com.safidence.safidence.databinding.FragmentRequestsBinding
 import com.safidence.safidence.ui.base.ViewModelFactory
 
 class RequestFragment : Fragment() {
 
     private lateinit var requestViewModel: RequestViewModel
-    private lateinit var cvNewRequest: CardView
-    private lateinit var requestRV: RecyclerView
+    private var _binding: FragmentRequestsBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -34,9 +35,8 @@ class RequestFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         setupViewModel()
-        requestViewModel =
-                ViewModelProvider(this).get(RequestViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_requests, container, false)
+        _binding = FragmentRequestsBinding.inflate(inflater, container, false)
+        val root: View = binding.root
         initViews(root)
         setupObserver()
 
@@ -54,9 +54,7 @@ class RequestFragment : Fragment() {
     }
 
     private fun initViews(root: View) {
-        requestRV = root.findViewById(R.id.rv_requests)
-        cvNewRequest = root.findViewById(R.id.cv_new_request)
-        cvNewRequest.setOnClickListener {
+        binding.cvNewRequest.setOnClickListener {
             findNavController().navigate(R.id.action_nav_request_to_nav_new_request)
         }
     }
@@ -77,7 +75,7 @@ class RequestFragment : Fragment() {
 
     private fun setRecyclerView(body: List<RequestStatusBody>) {
 
-        requestRV.apply {
+        binding.rvRequests.apply {
             // set a LinearLayoutManager to handle Android
             // RecyclerView behavior
             layoutManager = LinearLayoutManager(activity)
@@ -96,5 +94,10 @@ class RequestFragment : Fragment() {
     private fun dismissDialog() {
         if (progressDialog != null)
             progressDialog.dismiss()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

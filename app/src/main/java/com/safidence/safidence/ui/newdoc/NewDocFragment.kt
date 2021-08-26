@@ -15,12 +15,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.github.drjacky.imagepicker.ImagePicker
-import com.google.android.material.textfield.TextInputEditText
 import com.safidence.safidence.R
 import com.safidence.safidence.data.api.ApiHelper
 import com.safidence.safidence.data.api.ApiServiceImpl
 import com.safidence.safidence.data.model.ResponseDocTypes
 import com.safidence.safidence.data.prefs.SavePref
+import com.safidence.safidence.databinding.FragmentNewDocBinding
 import com.safidence.safidence.ui.base.ViewModelFactory
 import java.io.File
 import java.util.*
@@ -28,13 +28,12 @@ import java.util.*
 class NewDocFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     private lateinit var newDocViewModel: NewDocViewModel
-    private lateinit var docTypesSpinner: AutoCompleteTextView
-    private lateinit var etExpiry: TextInputEditText
-    private lateinit var etNum: TextInputEditText
-    private lateinit var etCountry: TextInputEditText
     private lateinit var file: File
-    private lateinit var etUpload: TextInputEditText
-    private lateinit var btnSave: Button
+    private var _binding: FragmentNewDocBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -42,11 +41,10 @@ class NewDocFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             savedInstanceState: Bundle?
     ): View? {
         setupViewModel()
-        newDocViewModel =
-                ViewModelProvider(this).get(NewDocViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_new_doc, container, false)
+        _binding = FragmentNewDocBinding.inflate(inflater, container, false)
+        val root: View = binding.root
 
-        initViews(root)
+        initViews()
         setupObserver()
 
         // call document types api
@@ -61,20 +59,13 @@ class NewDocFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             .get(NewDocViewModel::class.java)
     }
 
-    private fun initViews(root: View) {
-        docTypesSpinner = root.findViewById(R.id.ac_doc_type)
-        etExpiry = root.findViewById(R.id.et_expiry)
-        etUpload = root.findViewById(R.id.et_upload)
-        etNum = root.findViewById(R.id.et_num)
-        etCountry = root.findViewById(R.id.et_country)
-        btnSave = root.findViewById(R.id.btn_save)
-
-        etExpiry.setOnClickListener {
+    private fun initViews() {
+        binding.etExpiry.setOnClickListener {
             updateErrorFields()
             selectTime()
         }
 
-        etUpload.setOnClickListener {
+        binding.etUpload.setOnClickListener {
             updateErrorFields()
             ImagePicker.with(requireActivity())
                 .crop()
@@ -82,14 +73,14 @@ class NewDocFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                 .createIntentFromDialog { launcher.launch(it) }
         }
 
-        btnSave.setOnClickListener {
+        binding.btnSave.setOnClickListener {
             updateErrorFields()
 
-            if (!setErrorFields(etNum.text.toString(), etCountry.text.toString(),
-                    etExpiry.text.toString()))
+            if (!setErrorFields(binding.etNum.text.toString(), binding.etCountry.text.toString(),
+                    binding.etExpiry.text.toString()))
                 return@setOnClickListener
             newDocViewModel.uploadDoc(SavePref(requireContext()).getAccessToken(), docTypeId,
-                etNum.text.toString(), etCountry.text.toString(), etExpiry.text.toString(), file)
+                binding.etNum.text.toString(), binding.etCountry.text.toString(), binding.etExpiry.text.toString(), file)
             showProgressDialog()
         }
     }
@@ -103,8 +94,8 @@ class NewDocFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
         val adapter = ArrayAdapter(requireContext(),
             android.R.layout.simple_spinner_dropdown_item, docTypesTitle)
-        docTypesSpinner.setAdapter(adapter)
-        docTypesSpinner.onItemClickListener =
+        binding.acDocType.setAdapter(adapter)
+        binding.acDocType.onItemClickListener =
             AdapterView.OnItemClickListener { p0, p1, position, p3 ->
                 docTypeId = types.data[position].id
                 updateErrorFields()
@@ -153,49 +144,54 @@ class NewDocFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     }
 
     override fun onDateSet(p0: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        etExpiry.setText("$year-$month-$dayOfMonth")
+        binding.etExpiry.setText("$year-$month-$dayOfMonth")
     }
 
     private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == Activity.RESULT_OK) {
             val uri = it.data?.data!!
             // Use the uri to load the image
-            etUpload.setText(uri.toString())
+            binding.etUpload.setText(uri.toString())
             file = uri.toFile()
         }
     }
 
     private fun updateErrorFields() {
-        docTypesSpinner.error = null
-        etExpiry.error = null
-        etUpload.error = null
-        etNum.error = null
-        etCountry.error = null
+        binding.acDocType.error = null
+        binding.etExpiry.error = null
+        binding.etUpload.error = null
+        binding.etNum.error = null
+        binding.etCountry.error = null
     }
 
     private fun setErrorFields(num: String, country: String, expiry: String): Boolean {
         when {
             docTypeId == 0 -> {
-                docTypesSpinner.error = "* Required"
+                binding.acDocType.error = "* Required"
                 return false
             }
             num == "" -> {
-                etNum.error = "* Required"
+                binding.etNum.error = "* Required"
                 return false
             }
             country == "" -> {
-                etCountry.error = "* Required"
+                binding.etCountry.error = "* Required"
                 return false
             }
             expiry == "" -> {
-                etExpiry.error = "* Required"
+                binding.etExpiry.error = "* Required"
                 return false
             }
             !this::file.isInitialized -> {
-                etUpload.error = "* Required"
+                binding.etUpload.error = "* Required"
                 return false
             }
             else -> return true
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

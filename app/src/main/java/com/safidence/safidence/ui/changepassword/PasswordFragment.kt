@@ -5,26 +5,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.textfield.TextInputEditText
 import com.safidence.safidence.R
 import com.safidence.safidence.data.api.ApiHelper
 import com.safidence.safidence.data.api.ApiServiceImpl
 import com.safidence.safidence.data.prefs.SavePref
+import com.safidence.safidence.databinding.FragmentPasswordBinding
 import com.safidence.safidence.ui.base.ViewModelFactory
 
 class PasswordFragment : Fragment() {
 
     private lateinit var passwordViewModel: PasswordViewModel
-    private lateinit var tvCurrentPassword: TextInputEditText
-    private lateinit var tvNewPassword: TextInputEditText
-    private lateinit var tvConfirmPassword: TextInputEditText
-    private lateinit var btnUpdate: Button
+    private var _binding: FragmentPasswordBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -32,11 +32,10 @@ class PasswordFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         setupViewModel()
-        passwordViewModel =
-                ViewModelProvider(this).get(PasswordViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_password, container, false)
+        _binding = FragmentPasswordBinding.inflate(inflater, container, false)
+        val root: View = binding.root
 
-        initViews(root)
+        initViews()
         setupObserver()
 
         return root
@@ -49,18 +48,13 @@ class PasswordFragment : Fragment() {
         ).get(PasswordViewModel::class.java)
     }
 
-    private fun initViews(root:View) {
-        tvCurrentPassword = root.findViewById(R.id.tv_current_pass)
-        tvNewPassword = root.findViewById(R.id.tv_new_pass)
-        tvConfirmPassword = root.findViewById(R.id.tv_confirm_pass)
-        btnUpdate = root.findViewById(R.id.btn_update)
-
-        btnUpdate.setOnClickListener {
+    private fun initViews() {
+        binding.btnUpdate.setOnClickListener {
             val token = SavePref(requireContext()).getAccessToken()
             val nic = SavePref(requireContext()).getUserCNIC()
-            val oldPass = tvCurrentPassword.text.toString()
-            val newPass = tvNewPassword.text.toString()
-            val newConfirmPass = tvConfirmPassword.text.toString()
+            val oldPass = binding.tvCurrentPass.text.toString()
+            val newPass = binding.tvNewPass.text.toString()
+            val newConfirmPass = binding.tvConfirmPass.text.toString()
 
             if (oldPass == "") {
                 Toast.makeText(requireContext(), "Current password should not be empty",
@@ -105,5 +99,10 @@ class PasswordFragment : Fragment() {
     private fun dismissDialog() {
         if (progressDialog != null)
             progressDialog.dismiss()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

@@ -4,54 +4,52 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.safidence.safidence.R
 import com.safidence.safidence.data.prefs.SavePref
+import com.safidence.safidence.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
-    private lateinit var cvRequest: CardView
-    private lateinit var cvPayment: CardView
-    private lateinit var cvAnnoucements: CardView
-    private lateinit var cvDocs: CardView
-    private lateinit var tvName: TextView
+    private var _binding: FragmentHomeBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
+
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-                ViewModelProvider(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        initViews(root)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+        initViews()
         return root
     }
 
-    private fun initViews(root: View) {
-        tvName = root.findViewById(R.id.tv_title)
-        tvName.text = "Hello ".plus(SavePref(requireContext()).getUserName()).plus("!")
-        cvRequest = root.findViewById(R.id.cv_request)
-        cvPayment = root.findViewById(R.id.cv_Payments)
-        cvAnnoucements = root.findViewById(R.id.cv_announcements)
-        cvDocs = root.findViewById(R.id.cv_documents)
+    private fun initViews() {
+        binding.tvTitle.text = "Hello ".plus(SavePref(requireContext()).getUserName()).plus("!")
 
-        cvRequest.setOnClickListener {
+        binding.cvRequest.setOnClickListener {
             findNavController().navigate(R.id.action_nav_home_to_nav_request)
         }
-        cvPayment.setOnClickListener {
+        binding.cvPayments.setOnClickListener {
             findNavController().navigate(R.id.action_nav_home_to_nav_payment)
         }
-        cvAnnoucements.setOnClickListener {
+        binding.cvAnnouncements.setOnClickListener {
             findNavController().navigate(R.id.action_nav_home_to_nav_announcements)
         }
-        cvDocs.setOnClickListener {
+        binding.cvDocuments.setOnClickListener {
             findNavController().navigate(R.id.action_nav_home_to_nav_docs)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

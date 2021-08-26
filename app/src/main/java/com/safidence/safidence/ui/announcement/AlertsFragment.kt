@@ -10,19 +10,23 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.safidence.safidence.R
 import com.safidence.safidence.adapters.RequestAdapter
 import com.safidence.safidence.data.api.ApiHelper
 import com.safidence.safidence.data.api.ApiServiceImpl
 import com.safidence.safidence.data.model.AlertsBody
 import com.safidence.safidence.data.prefs.SavePref
+import com.safidence.safidence.databinding.FragmentAnnouncementsBinding
 import com.safidence.safidence.ui.base.ViewModelFactory
 
 class AlertsFragment : Fragment() {
 
     private lateinit var alertsViewModel: AlertsViewModel
-    private lateinit var rvRecyclerView: RecyclerView
+    private var _binding: FragmentAnnouncementsBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -30,10 +34,9 @@ class AlertsFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         setupViewModel()
-        alertsViewModel =
-                ViewModelProvider(this).get(AlertsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_announcements, container, false)
-        initViews(root)
+        _binding = FragmentAnnouncementsBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+        initViews()
         setupObserver()
 
         alertsViewModel.getAlerts(SavePref(requireContext()).getAccessToken())
@@ -49,12 +52,11 @@ class AlertsFragment : Fragment() {
         ).get(AlertsViewModel::class.java)
     }
 
-    private fun initViews(root: View) {
-        rvRecyclerView = root.findViewById(R.id.rv_announcements)
+    private fun initViews() {
     }
 
     private fun setRecyclerView(listData: List<AlertsBody>) {
-        rvRecyclerView.apply {
+        binding.rvAnnouncements.apply {
             // set a LinearLayoutManager to handle Android
             // RecyclerView behavior
             layoutManager = LinearLayoutManager(activity)
@@ -87,5 +89,10 @@ class AlertsFragment : Fragment() {
     private fun dismissDialog() {
         if (progressDialog != null)
             progressDialog.dismiss()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

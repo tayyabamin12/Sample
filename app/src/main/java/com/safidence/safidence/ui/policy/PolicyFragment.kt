@@ -10,22 +10,37 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.safidence.safidence.R
 import com.safidence.safidence.adapters.PolicyAdapter
+import com.safidence.safidence.data.api.ApiHelper
+import com.safidence.safidence.data.api.ApiServiceImpl
+import com.safidence.safidence.databinding.FragmentPolicyBinding
+import com.safidence.safidence.ui.base.ViewModelFactory
 
 class PolicyFragment : Fragment() {
 
     private lateinit var policyViewModel: PolicyViewModel
+    private var _binding: FragmentPolicyBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        policyViewModel =
-                ViewModelProvider(this).get(PolicyViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_policy, container, false)
+        setupViewModel()
+        _binding = FragmentPolicyBinding.inflate(inflater, container, false)
+        val root: View = binding.root
         setRecyclerView(root)
 
         return root
+    }
+    private fun setupViewModel() {
+        policyViewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(ApiHelper(ApiServiceImpl()))
+        ).get(PolicyViewModel::class.java)
     }
 
     private fun setRecyclerView(root: View) {
@@ -43,5 +58,10 @@ class PolicyFragment : Fragment() {
             // set the custom adapter to the RecyclerView
             adapter = PolicyAdapter(list)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

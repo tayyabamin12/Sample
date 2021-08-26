@@ -2,36 +2,39 @@ package com.safidence.safidence.ui.forgetpassword
 
 import android.app.ProgressDialog
 import android.os.Bundle
-import android.widget.Button
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.textfield.TextInputEditText
 import com.safidence.safidence.R
 import com.safidence.safidence.data.api.ApiHelper
 import com.safidence.safidence.data.api.ApiServiceImpl
+import com.safidence.safidence.databinding.FragmentForgetPasswordBinding
 import com.safidence.safidence.ui.base.ViewModelFactory
 
 class ForgetPassActivity : AppCompatActivity() {
 
-    private lateinit var sendBtn: Button
-    private lateinit var etCNIC: TextInputEditText
     private lateinit var forgetViewModel: ForgetViewModel
+    private var _binding: FragmentForgetPasswordBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupViewModel()
-        setContentView(R.layout.fragment_forget_password)
+        _binding = FragmentForgetPasswordBinding.inflate(layoutInflater)
+        val root: View = binding.root
+        setContentView(root)
         initViews()
         setupObserver()
     }
 
     private fun initViews() {
-        sendBtn = findViewById(R.id.btn_send)
-        etCNIC = findViewById(R.id.etNationalId)
-        sendBtn.setOnClickListener {
-            forgetViewModel.forgetPassword(etCNIC.text.toString())
+        binding.btnSend.setOnClickListener {
+            forgetViewModel.forgetPassword(binding.etNationalId.text.toString())
             showProgressDialog()
         }
     }
@@ -70,5 +73,10 @@ class ForgetPassActivity : AppCompatActivity() {
     private fun dismissDialog() {
         if (progressDialog != null)
             progressDialog.dismiss()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

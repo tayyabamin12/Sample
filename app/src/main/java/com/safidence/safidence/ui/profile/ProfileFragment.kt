@@ -5,30 +5,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.textfield.TextInputEditText
 import com.safidence.safidence.R
 import com.safidence.safidence.data.api.ApiHelper
 import com.safidence.safidence.data.api.ApiServiceImpl
 import com.safidence.safidence.data.model.ResponseTenantData
 import com.safidence.safidence.data.prefs.SavePref
+import com.safidence.safidence.databinding.FragmentProfileBinding
 import com.safidence.safidence.ui.base.ViewModelFactory
 
 class ProfileFragment : Fragment() {
 
     private lateinit var profileViewModel: ProfileViewModel
-    private lateinit var etName: TextInputEditText
-    private lateinit var etCnic: TextInputEditText
-    private lateinit var etPhone: TextInputEditText
-    private lateinit var etEmail: TextInputEditText
-    private lateinit var etNationality: TextInputEditText
-    private lateinit var etEmergencyName: TextInputEditText
-    private lateinit var etEmergencyPhone: TextInputEditText
-    private lateinit var btnRequest: Button
+    private var _binding: FragmentProfileBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -36,11 +32,10 @@ class ProfileFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         setupViewModel()
-        profileViewModel =
-                ViewModelProvider(this).get(ProfileViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_profile, container, false)
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        val root: View = binding.root
 
-        initViews(root)
+        initViews()
         setupObserver()
 
         profileViewModel.getTenantData(SavePref(requireContext()).getAccessToken())
@@ -56,15 +51,8 @@ class ProfileFragment : Fragment() {
         ).get(ProfileViewModel::class.java)
     }
 
-    private fun initViews(root:View){
-        etName = root.findViewById(R.id.et_fullname)
-        etCnic = root.findViewById(R.id.et_national_id)
-        etPhone = root.findViewById(R.id.et_phone)
-        etEmail = root.findViewById(R.id.et_email)
-        etNationality = root.findViewById(R.id.et_nationality)
-        etEmergencyName = root.findViewById(R.id.et_emergency_name)
-        etEmergencyPhone = root.findViewById(R.id.et_emergency_phone)
-        btnRequest = root.findViewById(R.id.btn_create_request)
+    private fun initViews(){
+
     }
 
     private fun setupObserver() {
@@ -81,13 +69,13 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setData(data:ResponseTenantData){
-        etName.setText(data.body[0].name)
-        etCnic.setText(data.body[0].nic)
-        etPhone.setText(data.body[0].phone)
-        etEmail.setText(data.body[0].email)
-        etNationality.setText(data.body[0].nationality.name)
-        etEmergencyName.setText(data.body[0].profile.emergency_name)
-        etEmergencyPhone.setText(data.body[0].profile.emergency_email)
+        binding.etFullname.setText(data.body[0].name)
+        binding.etNationalId.setText(data.body[0].nic)
+        binding.etPhone.setText(data.body[0].phone)
+        binding.etEmail.setText(data.body[0].email)
+        binding.etNationality.setText(data.body[0].nationality.name)
+        binding.etEmergencyName.setText(data.body[0].profile.emergency_name)
+        binding.etEmergencyPhone.setText(data.body[0].profile.emergency_email)
     }
 
     private lateinit var progressDialog: ProgressDialog
@@ -100,5 +88,10 @@ class ProfileFragment : Fragment() {
     private fun dismissDialog() {
         if (progressDialog != null)
             progressDialog.dismiss()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
