@@ -13,6 +13,7 @@ import com.safidence.safidence.ui.login.LoginViewModel
 import com.safidence.safidence.ui.main.MainViewModel
 import com.safidence.safidence.ui.newdoc.NewDocViewModel
 import com.safidence.safidence.ui.newrequest.NewRequestViewModel
+import com.safidence.safidence.ui.payment.PaymentViewModel
 import com.safidence.safidence.ui.policy.PolicyViewModel
 import com.safidence.safidence.ui.profile.ProfileViewModel
 import com.safidence.safidence.ui.property.PropertyViewModel
@@ -64,6 +65,9 @@ class ViewModelFactory(private val apiHelper: ApiHelper) : ViewModelProvider.Fac
             }
             modelClass.isAssignableFrom(PolicyViewModel::class.java) -> {
                 PolicyViewModel(MainRepository(apiHelper)) as T
+            }
+            modelClass.isAssignableFrom(PaymentViewModel::class.java) -> {
+                PaymentViewModel(MainRepository(apiHelper)) as T
             }
             else -> throw IllegalArgumentException("Unknown class name")
         }

@@ -190,4 +190,13 @@ class ApiServiceImpl : ApiService {
             .build()
             .getObjectSingle(ResponseUnitDetails::class.java)
     }
+
+    override fun getDuePayment(token: String, unitId: Int): Single<ResponseDuePayment> {
+        return Rx2AndroidNetworking.get(baseUrl.plus("due_payment/{unit_id}"))
+            .addHeaders("Accept", "application/json")
+            .addHeaders("Authorization", "Bearer $token")
+            .addPathParameter("unit_id", unitId.toString())
+            .build()
+            .getObjectSingle(ResponseDuePayment::class.java)
+    }
 }

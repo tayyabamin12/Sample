@@ -27,4 +27,5 @@ class ApiHelper(private val apiService: ApiService) {
                         isRenew: Boolean) = apiService.contractRequest(token, expiryDate, date,
         unitId, isRenew)
     fun getTenantUnitDetails(token: String, unitId:Int) = apiService.getTenantUnitDetails(token, unitId)
+    fun getDuePayment(token: String, unitId:Int) = apiService.getDuePayment(token, unitId)
 }
