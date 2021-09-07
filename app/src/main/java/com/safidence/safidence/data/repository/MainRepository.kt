@@ -84,4 +84,8 @@ class MainRepository(private val apiHelper: ApiHelper) {
     fun getDuePayment(token:String, unitId: Int): Single<ResponseDuePayment> {
         return apiHelper.getDuePayment(token, unitId)
     }
+
+    fun getPaymentHistory(token:String): Single<ResponsePaymentHistory> {
+        return apiHelper.getPaymentHistory(token)
+    }
 }

@@ -199,4 +199,12 @@ class ApiServiceImpl : ApiService {
             .build()
             .getObjectSingle(ResponseDuePayment::class.java)
     }
+
+    override fun getPaymentHistory(token: String): Single<ResponsePaymentHistory> {
+        return Rx2AndroidNetworking.get(baseUrl.plus("paymentDetails"))
+            .addHeaders("Accept", "application/json")
+            .addHeaders("Authorization", "Bearer $token")
+            .build()
+            .getObjectSingle(ResponsePaymentHistory::class.java)
+    }
 }

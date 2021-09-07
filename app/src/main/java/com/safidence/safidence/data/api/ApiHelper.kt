@@ -28,4 +28,5 @@ class ApiHelper(private val apiService: ApiService) {
         unitId, isRenew)
     fun getTenantUnitDetails(token: String, unitId:Int) = apiService.getTenantUnitDetails(token, unitId)
     fun getDuePayment(token: String, unitId:Int) = apiService.getDuePayment(token, unitId)
+    fun getPaymentHistory(token: String) = apiService.getPaymentHistory(token)
 }
