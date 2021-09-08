@@ -207,4 +207,86 @@ class ApiServiceImpl : ApiService {
             .build()
             .getObjectSingle(ResponsePaymentHistory::class.java)
     }
+
+    override fun addCreditCardPayment(
+        token: String,
+        type: String,
+        date: String,
+        unitId: String,
+        amount: String,
+        creditCardNo: String,
+        expiryDate: String,
+        securityCode: String
+    ): Single<ResponseGeneralMessage> {
+        TODO("Not yet implemented")
+    }
+
+    override fun addCashPayment(
+        token: String,
+        type: String,
+        date: String,
+        unitId: String,
+        amount: String,
+        paidTo: String,
+        image: File
+    ): Single<ResponseGeneralMessage> {
+        return Rx2AndroidNetworking.upload(baseUrl.plus("payment"))
+            .addHeaders("Accept", "application/json")
+            .addHeaders("Authorization", "Bearer $token")
+            .addMultipartParameter("type", type)
+            .addMultipartParameter("date", date)
+            .addMultipartParameter("unit_id", unitId)
+            .addMultipartParameter("amount", amount)
+            .addMultipartParameter("bank", amount)
+            .addMultipartParameter("paid_to", paidTo)
+            .addMultipartFile("Image", image)
+            .build()
+            .getObjectSingle(ResponseGeneralMessage::class.java)
+    }
+
+    override fun addBankPayment(
+        token: String,
+        type: String,
+        date: String,
+        unitId: String,
+        amount: String,
+        bank: String,
+        image: File
+    ): Single<ResponseGeneralMessage> {
+        return Rx2AndroidNetworking.upload(baseUrl.plus("payment"))
+            .addHeaders("Accept", "application/json")
+            .addHeaders("Authorization", "Bearer $token")
+            .addMultipartParameter("type", type)
+            .addMultipartParameter("date", date)
+            .addMultipartParameter("unit_id", unitId)
+            .addMultipartParameter("amount", amount)
+            .addMultipartParameter("bank", amount)
+            .addMultipartFile("Image", image)
+            .build()
+            .getObjectSingle(ResponseGeneralMessage::class.java)
+    }
+
+    override fun addChequePayment(
+        token: String,
+        type: String,
+        date: String,
+        unitId: String,
+        amount: String,
+        bank: String,
+        noOfCheque: String,
+        image: File
+    ): Single<ResponseGeneralMessage> {
+        return Rx2AndroidNetworking.upload(baseUrl.plus("payment"))
+            .addHeaders("Accept", "application/json")
+            .addHeaders("Authorization", "Bearer $token")
+            .addMultipartParameter("type", type)
+            .addMultipartParameter("date", date)
+            .addMultipartParameter("unit_id", unitId)
+            .addMultipartParameter("amount", amount)
+            .addMultipartParameter("bank", amount)
+            .addMultipartParameter("number_of_cheque", noOfCheque)
+            .addMultipartFile("Image", image)
+            .build()
+            .getObjectSingle(ResponseGeneralMessage::class.java)
+    }
 }
