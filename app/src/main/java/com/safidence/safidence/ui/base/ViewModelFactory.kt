@@ -5,7 +5,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.safidence.safidence.data.api.ApiHelper
 import com.safidence.safidence.data.repository.MainRepository
 import com.safidence.safidence.ui.announcement.AlertsViewModel
+import com.safidence.safidence.ui.bank.BankPaymentViewModel
+import com.safidence.safidence.ui.cashpayment.CashPaymentViewModel
 import com.safidence.safidence.ui.changepassword.PasswordViewModel
+import com.safidence.safidence.ui.cheque.ChequeViewModel
+import com.safidence.safidence.ui.creditcard.CreditCardViewModel
 import com.safidence.safidence.ui.docs.DocsViewModel
 import com.safidence.safidence.ui.end.EndContractViewModel
 import com.safidence.safidence.ui.forgetpassword.ForgetViewModel
@@ -72,6 +76,18 @@ class ViewModelFactory(private val apiHelper: ApiHelper) : ViewModelProvider.Fac
             }
             modelClass.isAssignableFrom(PaymentHistoryViewModel::class.java) -> {
                 PaymentHistoryViewModel(MainRepository(apiHelper)) as T
+            }
+            modelClass.isAssignableFrom(CreditCardViewModel::class.java) -> {
+                CreditCardViewModel(MainRepository(apiHelper)) as T
+            }
+            modelClass.isAssignableFrom(CashPaymentViewModel::class.java) -> {
+                CashPaymentViewModel(MainRepository(apiHelper)) as T
+            }
+            modelClass.isAssignableFrom(ChequeViewModel::class.java) -> {
+                ChequeViewModel(MainRepository(apiHelper)) as T
+            }
+            modelClass.isAssignableFrom(BankPaymentViewModel::class.java) -> {
+                BankPaymentViewModel(MainRepository(apiHelper)) as T
             }
             else -> throw IllegalArgumentException("Unknown class name")
         }

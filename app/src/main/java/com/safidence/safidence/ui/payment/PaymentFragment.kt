@@ -56,17 +56,26 @@ class PaymentFragment : Fragment() {
     private fun initViews() {
         binding.tvTitle.text = "Hello ".plus(SavePref(requireContext()).getUserName()).plus("!")
         binding.cvCreditCard.setOnClickListener {
-            findNavController().navigate(R.id.action_nav_payment_to_nav_credit_card)
+            findNavController().navigate(R.id.action_nav_payment_to_nav_credit_card, setArguments())
         }
         binding.cvCashPayment.setOnClickListener {
-            findNavController().navigate(R.id.action_nav_payment_to_nav_cash_payment)
+            findNavController().navigate(R.id.action_nav_payment_to_nav_cash_payment, setArguments())
         }
         binding.cvBankDeposit.setOnClickListener {
-            findNavController().navigate(R.id.action_nav_payment_to_nav_bank_deposit)
+            findNavController().navigate(R.id.action_nav_payment_to_nav_bank_deposit, setArguments())
         }
         binding.cvCheque.setOnClickListener {
-            findNavController().navigate(R.id.action_nav_payment_to_nav_cheque)
+            findNavController().navigate(R.id.action_nav_payment_to_nav_cheque, setArguments())
         }
+    }
+
+    private fun setArguments():Bundle {
+        val bundle = Bundle()
+        bundle.putString("due_date", data.due_date)
+        bundle.putString("due_payment", data.rent)
+        bundle.putString("pay_till", data.pay_till)
+        bundle.putString("unit_id", unitId.toString())
+        return bundle
     }
 
     private fun setupObserver() {
@@ -89,9 +98,11 @@ class PaymentFragment : Fragment() {
         })
     }
 
+    private lateinit var data: BodyDuePayment
     private fun setPaymentDetails(body: BodyDuePayment) {
         binding.tvDueDate.text = "Due Date: ".plus(body.due_date)
         binding.tvDuePayment.text = "Due Payment: ".plus(body.rent)
+        data = body
     }
 
     private var unitId = 0
