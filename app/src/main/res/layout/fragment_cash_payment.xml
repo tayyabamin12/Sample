@@ -38,6 +38,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_due_date"
                     android:layout_width="match_parent"
+                    android:focusableInTouchMode="false"
                     android:layout_height="wrap_content"/>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -54,6 +55,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_pay_till"
                     android:layout_width="match_parent"
+                    android:focusableInTouchMode="false"
                     android:layout_height="wrap_content"/>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -70,6 +72,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_due_payment"
                     android:layout_width="match_parent"
+                    android:focusableInTouchMode="false"
                     android:layout_height="wrap_content"/>
 
             </com.google.android.material.textfield.TextInputLayout>

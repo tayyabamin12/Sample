@@ -38,6 +38,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_due_date"
                     android:layout_width="match_parent"
+                    android:focusableInTouchMode="false"
                     android:layout_height="wrap_content"/>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -54,6 +55,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_pay_till"
                     android:layout_width="match_parent"
+                    android:focusableInTouchMode="false"
                     android:layout_height="wrap_content"/>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -68,9 +70,10 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ac_tv_due_payment"
+                    android:id="@+id/et_due_payment"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:focusableInTouchMode="false"/>
 
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
@@ -102,7 +105,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_cheques"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
 
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout

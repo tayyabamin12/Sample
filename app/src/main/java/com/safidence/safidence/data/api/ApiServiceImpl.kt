@@ -272,7 +272,7 @@ class ApiServiceImpl : ApiService {
             .addMultipartParameter("unit_id", unitId)
             .addMultipartParameter("amount", amount)
             .addMultipartParameter("bank", amount)
-            .addMultipartFile("Image", image)
+            .addMultipartFile("image", image)
             .build()
             .getObjectSingle(ResponseGeneralMessage::class.java)
     }
@@ -294,9 +294,9 @@ class ApiServiceImpl : ApiService {
             .addMultipartParameter("date", date)
             .addMultipartParameter("unit_id", unitId)
             .addMultipartParameter("amount", amount)
-            .addMultipartParameter("bank", amount)
+            .addMultipartParameter("bank", bank)
             .addMultipartParameter("number_of_cheque", noOfCheque)
-            .addMultipartFile("Image", image)
+            .addMultipartFile("image", image)
             .build()
             .getObjectSingle(ResponseGeneralMessage::class.java)
     }
