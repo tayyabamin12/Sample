@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.safidence.safidence.R
 import com.safidence.safidence.data.api.ApiHelper
 import com.safidence.safidence.data.api.ApiServiceImpl
@@ -63,14 +64,14 @@ class CreditCardFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                 val dueDate = binding.etDueDate.text.toString()
                 val payTill = binding.etPayTill.text.toString()
                 val duePayment = binding.etDuePayment.text.toString()
-                val cCNo = binding.etDueDate.text.toString()
+                val cCNo = binding.etCcardNo.text.toString()
                 val validTill = binding.etValidTill.text.toString()
                 val sCode = binding.etCode.text.toString()
 
                 if (unitId != null) {
                     creditCardViewModel.addCreditCardPayment(
                         token,
-                        "",
+                        "card",
                         dueDate,
                         unitId,
                         duePayment,
@@ -94,7 +95,8 @@ class CreditCardFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         creditCardViewModel.getResponse().observe(viewLifecycleOwner, Observer {
             dismissDialog()
             if (it.status == "success") {
-
+                Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                findNavController().navigateUp()
             } else {
                 Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
             }

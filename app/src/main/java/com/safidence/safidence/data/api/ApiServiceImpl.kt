@@ -218,7 +218,18 @@ class ApiServiceImpl : ApiService {
         expiryDate: String,
         securityCode: String
     ): Single<ResponseGeneralMessage> {
-        TODO("Not yet implemented")
+        return Rx2AndroidNetworking.post(baseUrl.plus("payment"))
+            .addHeaders("Accept", "application/json")
+            .addHeaders("Authorization", "Bearer $token")
+            .addBodyParameter("type", type)
+            .addBodyParameter("date", date)
+            .addBodyParameter("unit_id", unitId)
+            .addBodyParameter("amount", amount)
+            .addBodyParameter("credit_card_no", creditCardNo)
+            .addBodyParameter("expiry_date", expiryDate)
+            .addBodyParameter("security_code", securityCode)
+            .build()
+            .getObjectSingle(ResponseGeneralMessage::class.java)
     }
 
     override fun addCashPayment(
@@ -239,7 +250,7 @@ class ApiServiceImpl : ApiService {
             .addMultipartParameter("amount", amount)
             .addMultipartParameter("bank", amount)
             .addMultipartParameter("paid_to", paidTo)
-            .addMultipartFile("Image", image)
+            .addMultipartFile("image", image)
             .build()
             .getObjectSingle(ResponseGeneralMessage::class.java)
     }
