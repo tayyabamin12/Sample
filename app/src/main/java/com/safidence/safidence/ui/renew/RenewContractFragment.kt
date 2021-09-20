@@ -83,6 +83,7 @@ class RenewContractFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         renewContractViewModel.getResponseTenantUnits().observe(viewLifecycleOwner, Observer{
             if (it.status == "success") {
                 setUnitsSpinner(it)
+                binding.loading.visibility = View.GONE
             }
         })
 
@@ -90,6 +91,7 @@ class RenewContractFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             dismissDialog()
             if (it.status == "success") {
                 binding.etDate.setText(it.body.expiry_date)
+                splitDate(it.body.expiry_date)
             }
         })
 
@@ -104,6 +106,16 @@ class RenewContractFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         renewContractViewModel.getExceptionResponse().observe(viewLifecycleOwner, Observer {
             Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
         })
+    }
+
+    private var YEAR: Int = 0
+    private var DAY: Int = 0
+    private var MONTH: Int = 0
+    private fun splitDate(date:String) {
+        val str = date.split("-".toRegex()).toTypedArray()
+        YEAR = str[0].toInt()
+        DAY = str[2].toInt()
+        MONTH = str[1].toInt()
     }
 
     private var unitId = 0
@@ -134,7 +146,7 @@ class RenewContractFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     }
 
     private fun dismissDialog() {
-        if (progressDialog != null)
+        if (this::progressDialog.isInitialized)
             progressDialog.dismiss()
     }
 
@@ -144,7 +156,7 @@ class RenewContractFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         val month = calendar.get(Calendar.MONTH)
         val year = calendar.get(Calendar.YEAR)
         val datePickerDialog =
-            DatePickerDialog(requireContext(), this@RenewContractFragment, year, month,day)
+            DatePickerDialog(requireContext(), this@RenewContractFragment, YEAR,MONTH,DAY)
         datePickerDialog.show()
     }
 

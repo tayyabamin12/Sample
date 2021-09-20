@@ -31,6 +31,13 @@
             android:focusableInTouchMode="false" />
 
     </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/loading"
+        android:indeterminate="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tf_units"/>
 
     <TextView
         android:id="@+id/tv_title"
@@ -44,7 +51,7 @@
         android:textColor="@color/black"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tf_units" />
+        app:layout_constraintTop_toBottomOf="@id/loading" />
     <TextView
         android:id="@+id/tv_due_payment"
         android:layout_width="match_parent"

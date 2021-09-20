@@ -75,7 +75,7 @@ class ProfileFragment : Fragment() {
         binding.etEmail.setText(data.body[0].email)
         binding.etNationality.setText(data.body[0].nationality.name)
         binding.etEmergencyName.setText(data.body[0].profile.emergency_name)
-        binding.etEmergencyPhone.setText(data.body[0].profile.emergency_email)
+        binding.etEmergencyPhone.setText(data.body[0].profile.emergency_phone)
     }
 
     private lateinit var progressDialog: ProgressDialog
@@ -86,7 +86,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun dismissDialog() {
-        if (progressDialog != null)
+        if (this::progressDialog.isInitialized)
             progressDialog.dismiss()
     }
 

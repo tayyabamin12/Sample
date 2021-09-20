@@ -97,7 +97,7 @@ class PasswordFragment : Fragment() {
     }
 
     private fun dismissDialog() {
-        if (progressDialog != null)
+        if (this::progressDialog.isInitialized)
             progressDialog.dismiss()
     }
 

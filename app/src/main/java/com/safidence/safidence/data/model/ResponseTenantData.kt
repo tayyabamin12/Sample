@@ -8,7 +8,8 @@ data class ResponseTenantData(
 
 data class Profile1(
     val emergency_email: String,
-    val emergency_name: String
+    val emergency_name: String,
+    val emergency_phone: String
 )
 
 data class Nationality(

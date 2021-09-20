@@ -105,6 +105,7 @@ class NewDocFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private fun setupObserver() {
         newDocViewModel.getResponseDocTypes().observe(viewLifecycleOwner, Observer {
             setDocTypeSpinner(it)
+            binding.loading.visibility = View.GONE
         })
 
         newDocViewModel.getResponseUploadDoc().observe(viewLifecycleOwner, Observer {
@@ -129,7 +130,7 @@ class NewDocFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     }
 
     private fun dismissDialog() {
-        if (progressDialog != null)
+        if (this::progressDialog.isInitialized)
             progressDialog.dismiss()
     }
 

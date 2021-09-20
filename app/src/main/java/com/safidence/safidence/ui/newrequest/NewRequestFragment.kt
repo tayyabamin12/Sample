@@ -149,12 +149,14 @@ class NewRequestFragment : Fragment(), DatePickerDialog.OnDateSetListener,
         newRequestViewModel.getResponseReqTypes().observe(viewLifecycleOwner, Observer{
             if (it.status == "success") {
                 setCatSpinner(it)
+                binding.catLoading.visibility = View.GONE
             }
         })
 
         newRequestViewModel.getResponseTenantUnits().observe(viewLifecycleOwner, Observer{
             if (it.status == "success") {
                 setUnitsSpinner(it)
+                binding.unitsLoading.visibility = View.GONE
             }
         })
 
@@ -189,7 +191,7 @@ class NewRequestFragment : Fragment(), DatePickerDialog.OnDateSetListener,
     }
 
     private fun dismissDialog() {
-        if (progressDialog != null)
+        if (this::progressDialog.isInitialized)
             progressDialog.dismiss()
     }
 

@@ -74,6 +74,7 @@ class EndContractFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         endContractViewModel.getResponseTenantUnits().observe(viewLifecycleOwner, Observer{
             if (it.status == "success") {
                 setUnitsSpinner(it)
+                binding.loading.visibility = View.GONE
             }
         })
 
@@ -125,7 +126,7 @@ class EndContractFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     }
 
     private fun dismissDialog() {
-        if (progressDialog != null)
+        if (this::progressDialog.isInitialized)
             progressDialog.dismiss()
     }
 

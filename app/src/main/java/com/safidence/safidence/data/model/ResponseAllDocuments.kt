@@ -12,5 +12,11 @@ data class DocBody(
     val image: String,
     val issue_country: String,
     val number: String,
-    val storage_path: String
+    val storage_path: String,
+    val type: DocType
+)
+
+data class DocType(
+    val id: Int,
+    val name: String
 )

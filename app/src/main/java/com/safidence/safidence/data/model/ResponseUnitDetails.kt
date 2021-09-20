@@ -10,7 +10,8 @@ data class UnitsDetailBody(
     val buliding: Buliding,
     val name: String,
     val parking: Int,
-    val space: String
+    val space: String,
+    val type: String
 )
 
 data class Buliding(

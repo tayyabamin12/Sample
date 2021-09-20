@@ -33,7 +33,6 @@
                 android:hint="Units"
                 app:boxStrokeColor="@color/purple_500"
                 app:hintTextColor="@color/blue"
-                android:layout_marginBottom="5dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
                 <AutoCompleteTextView
@@ -43,6 +42,11 @@
                     android:focusableInTouchMode="false" />
 
             </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/loading"
+                android:indeterminate="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tf_bname"
@@ -51,6 +55,7 @@
                 android:hint="Building Name"
                 app:boxStrokeColor="@color/purple_500"
                 app:hintTextColor="@color/blue"
+                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -64,7 +69,7 @@
                 android:id="@+id/tf_accommodation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Accommodation"
+                android:hint="Unit Type"
                 app:boxStrokeColor="@color/purple_500"
                 app:hintTextColor="@color/blue"
                 android:layout_marginBottom="5dp"
@@ -96,7 +101,7 @@
                 android:id="@+id/tf_parking"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Parking"
+                android:hint="Parking Slot No"
                 app:boxStrokeColor="@color/purple_500"
                 app:hintTextColor="@color/blue"
                 android:layout_marginBottom="5dp"
@@ -130,6 +135,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Create a Request"
+                android:visibility="gone"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/blue"
                 style="@style/Widget.MaterialComponents.Button" />

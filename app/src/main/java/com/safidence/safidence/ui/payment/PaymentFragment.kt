@@ -82,6 +82,7 @@ class PaymentFragment : Fragment() {
         paymentViewModel.getResponseTenantUnits().observe(viewLifecycleOwner, Observer {
             if (it.status == "success") {
                 setUnitsSpinner(it)
+                binding.loading.visibility = View.GONE
             }
         })
 
@@ -141,7 +142,7 @@ class PaymentFragment : Fragment() {
     }
 
     private fun dismissDialog() {
-        if (progressDialog != null)
+        if (this::progressDialog.isInitialized)
             progressDialog.dismiss()
     }
 

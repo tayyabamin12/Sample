@@ -71,7 +71,7 @@ class ForgetPassActivity : AppCompatActivity() {
     }
 
     private fun dismissDialog() {
-        if (progressDialog != null)
+        if (this::progressDialog.isInitialized)
             progressDialog.dismiss()
     }
 

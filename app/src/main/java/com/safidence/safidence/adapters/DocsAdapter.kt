@@ -19,6 +19,7 @@ class DocsAdapter(private val list: List<DocBody>) : RecyclerView.Adapter<DocsAd
         val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
         val tvDate: TextView = itemView.findViewById(R.id.tvDate)
         val tvStatus: TextView = itemView.findViewById(R.id.tvStatus)
+        val tvType: TextView = itemView.findViewById(R.id.tv_type)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -35,6 +36,7 @@ class DocsAdapter(private val list: List<DocBody>) : RecyclerView.Adapter<DocsAd
 
         holder.tvDate.text = "Expired On: ".plus(output)
         holder.tvStatus.text = "Issued By: ".plus(list[position].issue_country)
+        holder.tvType.text = "Document Type: ".plus(list[position].type.name)
     }
 
     override fun getItemCount(): Int {

@@ -54,6 +54,7 @@ class PropertyFragment : Fragment() {
         propertyViewModel.getResponseTenantUnits().observe(viewLifecycleOwner, Observer{
             if (it.status == "success") {
                 setUnitsSpinner(it)
+                binding.loading.visibility = View.GONE
             }
         })
 
@@ -73,7 +74,7 @@ class PropertyFragment : Fragment() {
     private fun setContent(it:ResponseUnitDetails) {
         try {
             binding.etBname.setText(it.body[0].buliding.name)
-            binding.etAccommodation.setText("Yes")
+            binding.etAccommodation.setText(it.body[0].type)
             binding.etSpace.setText(it.body[0].space)
             binding.etParking.setText(it.body[0].parking.toString())
             binding.etAddress.setText(it.body[0].buliding.address)
