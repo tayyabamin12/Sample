@@ -167,4 +167,14 @@ class MainRepository(private val apiHelper: ApiHelper) {
             image
         )
     }
+
+    fun updateProfile(
+        token: String,
+        phone: String,
+        email: String,
+        emergencyName: String,
+        emergencyPhone: String
+    ): Single<ResponseGeneralMessage> {
+        return apiHelper.updateProfile(token, phone, email, emergencyName, emergencyPhone)
+    }
 }

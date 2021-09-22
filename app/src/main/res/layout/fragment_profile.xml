@@ -105,6 +105,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_nationality"
                     android:layout_width="match_parent"
+                    android:focusableInTouchMode="false"
                     android:layout_height="wrap_content"/>
 
             </com.google.android.material.textfield.TextInputLayout>

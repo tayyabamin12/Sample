@@ -95,4 +95,12 @@ class ApiHelper(private val apiService: ApiService) {
         noOfCheque: String,
         image: File
     ) = apiService.addChequePayment(token, type, date, unitId, amount, bank, noOfCheque, image)
+    fun updateProfile(
+        token: String,
+        phone: String,
+        email: String,
+        emergencyName: String,
+        emergencyPhone: String
+    ) =
+        apiService.updateProfile(token, phone, email, emergencyName, emergencyPhone)
 }

@@ -300,4 +300,22 @@ class ApiServiceImpl : ApiService {
             .build()
             .getObjectSingle(ResponseGeneralMessage::class.java)
     }
+
+    override fun updateProfile(
+        token: String,
+        phone: String,
+        email: String,
+        emergencyName: String,
+        emergencyPhone: String
+    ): Single<ResponseGeneralMessage> {
+        return Rx2AndroidNetworking.post(baseUrl.plus("update_tenant_profile"))
+            .addHeaders("Accept", "application/json")
+            .addHeaders("Authorization", "Bearer $token")
+            .addBodyParameter("phone", phone)
+            .addBodyParameter("email", email)
+            .addBodyParameter("emergency_name", emergencyName)
+            .addBodyParameter("emergency_phone", emergencyPhone)
+            .build()
+            .getObjectSingle(ResponseGeneralMessage::class.java)
+    }
 }

@@ -81,4 +81,11 @@ interface ApiService {
         noOfCheque: String,
         image: File
     ): Single<ResponseGeneralMessage>
+    fun updateProfile(
+        token: String,
+        phone: String,
+        email: String,
+        emergencyName: String,
+        emergencyPhone: String
+    ): Single<ResponseGeneralMessage>
 }
