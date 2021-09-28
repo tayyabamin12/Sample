@@ -9,7 +9,7 @@ data class ResponseUnitDetails(
 data class UnitsDetailBody(
     val buliding: Buliding,
     val name: String,
-    val parking: Int,
+    val parking_slot_no: Int,
     val space: String,
     val type: String
 )

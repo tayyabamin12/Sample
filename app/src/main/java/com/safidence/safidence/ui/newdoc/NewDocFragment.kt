@@ -22,6 +22,7 @@ import com.safidence.safidence.data.model.ResponseDocTypes
 import com.safidence.safidence.data.prefs.SavePref
 import com.safidence.safidence.databinding.FragmentNewDocBinding
 import com.safidence.safidence.ui.base.ViewModelFactory
+import com.safidence.safidence.utils.Util
 import java.io.File
 import java.util.*
 
@@ -60,6 +61,7 @@ class NewDocFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     }
 
     private fun initViews() {
+        setCountrySpinner()
         binding.etExpiry.setOnClickListener {
             updateErrorFields()
             selectTime()
@@ -76,11 +78,11 @@ class NewDocFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         binding.btnSave.setOnClickListener {
             updateErrorFields()
 
-            if (!setErrorFields(binding.etNum.text.toString(), binding.etCountry.text.toString(),
+            if (!setErrorFields(binding.etNum.text.toString(), binding.macCountry.text.toString(),
                     binding.etExpiry.text.toString()))
                 return@setOnClickListener
             newDocViewModel.uploadDoc(SavePref(requireContext()).getAccessToken(), docTypeId,
-                binding.etNum.text.toString(), binding.etCountry.text.toString(), binding.etExpiry.text.toString(), file)
+                binding.etNum.text.toString(), binding.macCountry.text.toString(), binding.etExpiry.text.toString(), file)
             showProgressDialog()
         }
     }
@@ -98,6 +100,16 @@ class NewDocFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         binding.acDocType.onItemClickListener =
             AdapterView.OnItemClickListener { p0, p1, position, p3 ->
                 docTypeId = types.data[position].id
+                updateErrorFields()
+            }
+    }
+
+    private fun setCountrySpinner() {
+        val adapter = ArrayAdapter(requireContext(),
+            android.R.layout.simple_spinner_dropdown_item, Util.getCountryList())
+        binding.macCountry.setAdapter(adapter)
+        binding.macCountry.onItemClickListener =
+            AdapterView.OnItemClickListener { p0, p1, position, p3 ->
                 updateErrorFields()
             }
     }
@@ -162,7 +174,7 @@ class NewDocFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         binding.etExpiry.error = null
         binding.etUpload.error = null
         binding.etNum.error = null
-        binding.etCountry.error = null
+        binding.macCountry.error = null
     }
 
     private fun setErrorFields(num: String, country: String, expiry: String): Boolean {
@@ -176,7 +188,7 @@ class NewDocFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                 return false
             }
             country == "" -> {
-                binding.etCountry.error = "* Required"
+                binding.macCountry.error = "* Required"
                 return false
             }
             expiry == "" -> {

@@ -76,7 +76,7 @@ class PropertyFragment : Fragment() {
             binding.etBname.setText(it.body[0].buliding.name)
             binding.etAccommodation.setText(it.body[0].type)
             binding.etSpace.setText(it.body[0].space)
-            binding.etParking.setText(it.body[0].parking.toString())
+            binding.etParking.setText(it.body[0].parking_slot_no.toString())
             binding.etAddress.setText(it.body[0].buliding.address)
         } catch (e: Exception) {
         }

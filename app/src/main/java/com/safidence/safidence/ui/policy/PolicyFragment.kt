@@ -56,7 +56,7 @@ class PolicyFragment : Fragment() {
             // RecyclerView behavior
             layoutManager = LinearLayoutManager(activity)
             // set the custom adapter to the RecyclerView
-            adapter = PolicyAdapter(list)
+            adapter = PolicyAdapter(context, list)
         }
     }
 

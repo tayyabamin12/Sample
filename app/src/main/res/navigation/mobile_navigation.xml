@@ -121,7 +121,16 @@
         android:id="@+id/nav_policy"
         android:name="com.safidence.safidence.ui.policy.PolicyFragment"
         android:label="Documents &amp; Policies"
-        tools:layout="@layout/fragment_policy" />
+        tools:layout="@layout/fragment_policy" >
+        <action
+            android:id="@+id/action_nav_policy_to_nav_pdf"
+            app:destination="@id/nav_pdf" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_pdf"
+        android:name="com.safidence.safidence.ui.pdfview.PdfViewFragment"
+        android:label=""
+        tools:layout="@layout/fragment_pdfview" />
     <fragment
         android:id="@+id/nav_login"
         android:name="com.safidence.safidence.ui.login.LoginFragment"
