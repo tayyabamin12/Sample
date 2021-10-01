@@ -74,6 +74,7 @@ class ChequeFragment : Fragment() {
                 val token = SavePref(requireContext()).getAccessToken()
                 val dueDate = binding.etDueDate.text.toString()
                 val duePayment = binding.etDuePayment.text.toString()
+                val paidTill = binding.etPayTill.text.toString()
                 val bank = binding.etBank.text.toString()
                 val noOfCheque = binding.etCheques.text.toString()
 
@@ -82,6 +83,7 @@ class ChequeFragment : Fragment() {
                         token,
                         "cheque",
                         dueDate,
+                        paidTill,
                         unitId,
                         duePayment,
                         bank,

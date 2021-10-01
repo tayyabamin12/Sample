@@ -182,6 +182,15 @@ class ApiServiceImpl : ApiService {
         return  response.build().getObjectSingle(ResponseGeneralMessage::class.java)
     }
 
+    override fun getContractDetails(token: String, unitId: Int): Single<ResponseContract> {
+        return Rx2AndroidNetworking.get(baseUrl.plus("contract_details/{unit_id}"))
+            .addHeaders("Accept", "application/json")
+            .addHeaders("Authorization", "Bearer $token")
+            .addPathParameter("unit_id", unitId.toString())
+            .build()
+            .getObjectSingle(ResponseContract::class.java)
+    }
+
     override fun getTenantUnitDetails(token: String, unitId: Int): Single<ResponseUnitDetails> {
         return Rx2AndroidNetworking.get(baseUrl.plus("tenant_unit_details/{unit_id}"))
             .addHeaders("Accept", "application/json")
@@ -212,6 +221,7 @@ class ApiServiceImpl : ApiService {
         token: String,
         type: String,
         date: String,
+        paidTill: String,
         unitId: String,
         amount: String,
         creditCardNo: String,
@@ -222,7 +232,8 @@ class ApiServiceImpl : ApiService {
             .addHeaders("Accept", "application/json")
             .addHeaders("Authorization", "Bearer $token")
             .addBodyParameter("type", type)
-            .addBodyParameter("date", date)
+            .addBodyParameter("date", paidTill)
+            .addBodyParameter("due_date", date)
             .addBodyParameter("unit_id", unitId)
             .addBodyParameter("amount", amount)
             .addBodyParameter("credit_card_no", creditCardNo)
@@ -236,6 +247,7 @@ class ApiServiceImpl : ApiService {
         token: String,
         type: String,
         date: String,
+        paidTill: String,
         unitId: String,
         amount: String,
         paidTo: String,
@@ -245,7 +257,8 @@ class ApiServiceImpl : ApiService {
             .addHeaders("Accept", "application/json")
             .addHeaders("Authorization", "Bearer $token")
             .addMultipartParameter("type", type)
-            .addMultipartParameter("date", date)
+            .addMultipartParameter("date", paidTill)
+            .addMultipartParameter("due_date", date)
             .addMultipartParameter("unit_id", unitId)
             .addMultipartParameter("amount", amount)
             .addMultipartParameter("bank", amount)
@@ -259,6 +272,7 @@ class ApiServiceImpl : ApiService {
         token: String,
         type: String,
         date: String,
+        paidTill: String,
         unitId: String,
         amount: String,
         bank: String,
@@ -268,7 +282,8 @@ class ApiServiceImpl : ApiService {
             .addHeaders("Accept", "application/json")
             .addHeaders("Authorization", "Bearer $token")
             .addMultipartParameter("type", type)
-            .addMultipartParameter("date", date)
+            .addMultipartParameter("date", paidTill)
+            .addMultipartParameter("due_date", date)
             .addMultipartParameter("unit_id", unitId)
             .addMultipartParameter("amount", amount)
             .addMultipartParameter("bank", amount)
@@ -281,6 +296,7 @@ class ApiServiceImpl : ApiService {
         token: String,
         type: String,
         date: String,
+        paidTill: String,
         unitId: String,
         amount: String,
         bank: String,
@@ -291,7 +307,8 @@ class ApiServiceImpl : ApiService {
             .addHeaders("Accept", "application/json")
             .addHeaders("Authorization", "Bearer $token")
             .addMultipartParameter("type", type)
-            .addMultipartParameter("date", date)
+            .addMultipartParameter("date", paidTill)
+            .addMultipartParameter("due_date", date)
             .addMultipartParameter("unit_id", unitId)
             .addMultipartParameter("amount", amount)
             .addMultipartParameter("bank", bank)
@@ -317,5 +334,13 @@ class ApiServiceImpl : ApiService {
             .addBodyParameter("emergency_phone", emergencyPhone)
             .build()
             .getObjectSingle(ResponseGeneralMessage::class.java)
+    }
+
+    override fun getPolicies(token: String): Single<ResponsePolicies> {
+        return Rx2AndroidNetworking.get(baseUrl.plus("policies"))
+            .addHeaders("Accept", "application/json")
+            .addHeaders("Authorization", "Bearer $token")
+            .build()
+            .getObjectSingle(ResponsePolicies::class.java)
     }
 }

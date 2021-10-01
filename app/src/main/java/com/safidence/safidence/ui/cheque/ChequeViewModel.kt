@@ -17,10 +17,10 @@ class ChequeViewModel(private val mainRepository: MainRepository) : ViewModel() 
     private val exceptionResponse = MutableLiveData<String>()
     private val compositeDisposable = CompositeDisposable()
 
-    fun addChequePayment(token: String, type: String, date: String, unitId: String,
+    fun addChequePayment(token: String, type: String, date: String, paidTill: String, unitId: String,
                          amount: String, bank: String, noOfCheque: String, image: File) {
         compositeDisposable.add(
-            mainRepository.addChequePayment(token, type, date, unitId, amount, bank, noOfCheque, image)
+            mainRepository.addChequePayment(token, type, date, paidTill, unitId, amount, bank, noOfCheque, image)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ items ->

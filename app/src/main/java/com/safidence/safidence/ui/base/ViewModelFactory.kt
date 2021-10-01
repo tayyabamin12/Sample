@@ -9,6 +9,7 @@ import com.safidence.safidence.ui.bank.BankPaymentViewModel
 import com.safidence.safidence.ui.cashpayment.CashPaymentViewModel
 import com.safidence.safidence.ui.changepassword.PasswordViewModel
 import com.safidence.safidence.ui.cheque.ChequeViewModel
+import com.safidence.safidence.ui.contract.ContractViewModel
 import com.safidence.safidence.ui.creditcard.CreditCardViewModel
 import com.safidence.safidence.ui.docs.DocsViewModel
 import com.safidence.safidence.ui.end.EndContractViewModel
@@ -92,6 +93,9 @@ class ViewModelFactory(private val apiHelper: ApiHelper) : ViewModelProvider.Fac
             }
             modelClass.isAssignableFrom(PdfViewViewModel::class.java) -> {
                 PdfViewViewModel(MainRepository(apiHelper)) as T
+            }
+            modelClass.isAssignableFrom(ContractViewModel::class.java) -> {
+                ContractViewModel(MainRepository(apiHelper)) as T
             }
             else -> throw IllegalArgumentException("Unknown class name")
         }

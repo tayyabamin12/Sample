@@ -1,17 +1,21 @@
 package com.safidence.safidence.ui.policy
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.safidence.safidence.R
 import com.safidence.safidence.adapters.PolicyAdapter
 import com.safidence.safidence.data.api.ApiHelper
 import com.safidence.safidence.data.api.ApiServiceImpl
+import com.safidence.safidence.data.model.PoliciesBody
+import com.safidence.safidence.data.prefs.SavePref
 import com.safidence.safidence.databinding.FragmentPolicyBinding
 import com.safidence.safidence.ui.base.ViewModelFactory
 
@@ -32,8 +36,10 @@ class PolicyFragment : Fragment() {
         setupViewModel()
         _binding = FragmentPolicyBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        setRecyclerView(root)
+        setupObserver()
 
+        policyViewModel.getPolicies(SavePref(requireContext()).getAccessToken())
+        showProgressDialog()
         return root
     }
     private fun setupViewModel() {
@@ -43,21 +49,42 @@ class PolicyFragment : Fragment() {
         ).get(PolicyViewModel::class.java)
     }
 
-    private fun setRecyclerView(root: View) {
-        val requestRV = root.findViewById<RecyclerView>(R.id.rv_announcements)
-
-        val list = ArrayList<String>()
-        list.add("Noise Policy")
-        list.add("End Contract Policy")
-        list.add("Event Management Policy")
-
-        requestRV.apply {
+    private fun setRecyclerView(listBody: List<PoliciesBody>) {
+        if (listBody.isEmpty())
+            binding.tvMessage.visibility = View.VISIBLE
+        binding.rvAnnouncements.apply {
             // set a LinearLayoutManager to handle Android
             // RecyclerView behavior
             layoutManager = LinearLayoutManager(activity)
             // set the custom adapter to the RecyclerView
-            adapter = PolicyAdapter(context, list)
+            adapter = PolicyAdapter(context, listBody)
         }
+    }
+
+    private fun setupObserver() {
+        policyViewModel.getResponsePolicies().observe(viewLifecycleOwner, Observer{
+            dismissDialog()
+            if (it.status == "success") {
+                setRecyclerView(it.body)
+            }
+        })
+
+        policyViewModel.getExceptionResponse().observe(viewLifecycleOwner, Observer {
+            dismissDialog()
+            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+        })
+    }
+
+    private lateinit var progressDialog: ProgressDialog
+    private fun showProgressDialog(){
+        progressDialog = ProgressDialog(requireContext())
+        progressDialog.setMessage(resources.getString(R.string.please_wait))
+        progressDialog.show()
+    }
+
+    private fun dismissDialog() {
+        if (this::progressDialog.isInitialized && progressDialog != null)
+            progressDialog.dismiss()
     }
 
     override fun onDestroy() {

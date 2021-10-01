@@ -26,6 +26,29 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tf_units"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Units"
+                app:boxStrokeColor="@color/purple_500"
+                app:hintTextColor="@color/blue"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                <AutoCompleteTextView
+                    android:id="@+id/ac_tv_units"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusableInTouchMode="false" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/loading"
+                android:indeterminate="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tf_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -33,12 +56,14 @@
                 app:boxStrokeColor="@color/purple_500"
                 app:hintTextColor="@color/blue"
                 android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_date"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:focusableInTouchMode="false"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 

@@ -16,11 +16,11 @@ class CreditCardViewModel(private val mainRepository: MainRepository) : ViewMode
     private val exceptionResponse = MutableLiveData<String>()
     private val compositeDisposable = CompositeDisposable()
 
-    fun addCreditCardPayment(token: String, type: String, date: String, unitId: String,
+    fun addCreditCardPayment(token: String, type: String, date: String, payTill:String, unitId: String,
                              amount: String, creditCardNo: String, expiryDate: String,
                              securityCode: String) {
         compositeDisposable.add(
-            mainRepository.addCreditCardPayment(token, type, date, unitId, amount, creditCardNo,
+            mainRepository.addCreditCardPayment(token, type, date, payTill, unitId, amount, creditCardNo,
                 expiryDate, securityCode)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

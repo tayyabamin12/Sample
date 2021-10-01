@@ -45,12 +45,16 @@ class ApiHelper(private val apiService: ApiService) {
     fun getTenantUnitDetails(token: String, unitId: Int) =
         apiService.getTenantUnitDetails(token, unitId)
 
+    fun getContractDetails(token: String, unitId: Int) =
+        apiService.getContractDetails(token, unitId)
+
     fun getDuePayment(token: String, unitId: Int) = apiService.getDuePayment(token, unitId)
     fun getPaymentHistory(token: String) = apiService.getPaymentHistory(token)
     fun addCreditCardPayment(
         token: String,
         type: String,
         date: String,
+        paidTill: String,
         unitId: String,
         amount: String,
         creditCardNo: String,
@@ -60,6 +64,7 @@ class ApiHelper(private val apiService: ApiService) {
         token,
         type,
         date,
+        paidTill,
         unitId,
         amount,
         creditCardNo,
@@ -70,31 +75,34 @@ class ApiHelper(private val apiService: ApiService) {
         token: String,
         type: String,
         date: String,
+        paidTill: String,
         unitId: String,
         amount: String,
         paidTo: String,
         image: File
-    ) = apiService.addCashPayment(token, type, date, unitId, amount, paidTo, image)
+    ) = apiService.addCashPayment(token, type, date, paidTill, unitId, amount, paidTo, image)
     fun addBankPayment(
         token: String,
         type: String,
         date: String,
+        paidTill: String,
         unitId: String,
         amount: String,
         bank: String,
         image: File
-    ) = apiService.addBankPayment(token, type, date, unitId, amount, bank, image)
+    ) = apiService.addBankPayment(token, type, date, paidTill, unitId, amount, bank, image)
 
     fun addChequePayment(
         token: String,
         type: String,
         date: String,
+        paidTill: String,
         unitId: String,
         amount: String,
         bank: String,
         noOfCheque: String,
         image: File
-    ) = apiService.addChequePayment(token, type, date, unitId, amount, bank, noOfCheque, image)
+    ) = apiService.addChequePayment(token, type, date, paidTill, unitId, amount, bank, noOfCheque, image)
     fun updateProfile(
         token: String,
         phone: String,
@@ -103,4 +111,6 @@ class ApiHelper(private val apiService: ApiService) {
         emergencyPhone: String
     ) =
         apiService.updateProfile(token, phone, email, emergencyName, emergencyPhone)
+
+    fun getPolicies(token: String) = apiService.getPolicies(token)
 }

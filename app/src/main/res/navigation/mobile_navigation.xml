@@ -103,7 +103,11 @@
         android:id="@+id/nav_contract"
         android:name="com.safidence.safidence.ui.contract.ContractFragment"
         android:label="Contract"
-        tools:layout="@layout/fragment_contract" />
+        tools:layout="@layout/fragment_contract" >
+        <action
+            android:id="@+id/action_nav_contract_to_nav_pdf"
+            app:destination="@id/nav_pdf" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_renew_contract"

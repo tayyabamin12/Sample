@@ -39,6 +39,7 @@ interface ApiService {
         token: String, expiryDate: String, date: String,
         unitId: Int, isRenew: Boolean
     ): Single<ResponseGeneralMessage>
+    fun getContractDetails(token: String, unitId: Int, ): Single<ResponseContract>
 
     fun getTenantUnitDetails(token: String, unitId: Int): Single<ResponseUnitDetails>
     fun getDuePayment(token: String, unitId: Int): Single<ResponseDuePayment>
@@ -47,6 +48,7 @@ interface ApiService {
         token: String,
         type: String,
         date: String,
+        paidTill: String,
         unitId: String,
         amount: String,
         creditCardNo: String,
@@ -57,6 +59,7 @@ interface ApiService {
         token: String,
         type: String,
         date: String,
+        paidTill: String,
         unitId: String,
         amount: String,
         paidTo: String,
@@ -66,6 +69,7 @@ interface ApiService {
         token: String,
         type: String,
         date: String,
+        paidTill: String,
         unitId: String,
         amount: String,
         bank: String,
@@ -75,6 +79,7 @@ interface ApiService {
         token: String,
         type: String,
         date: String,
+        paidTill: String,
         unitId: String,
         amount: String,
         bank: String,
@@ -88,4 +93,5 @@ interface ApiService {
         emergencyName: String,
         emergencyPhone: String
     ): Single<ResponseGeneralMessage>
+    fun getPolicies(token: String): Single<ResponsePolicies>
 }

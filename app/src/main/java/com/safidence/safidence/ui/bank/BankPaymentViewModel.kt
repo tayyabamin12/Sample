@@ -17,10 +17,10 @@ class BankPaymentViewModel(private val mainRepository: MainRepository) : ViewMod
     private val exceptionResponse = MutableLiveData<String>()
     private val compositeDisposable = CompositeDisposable()
 
-    fun addBankPayment(token: String, type: String, date: String, unitId: String,
+    fun addBankPayment(token: String, type: String, date: String, paidTill: String, unitId: String,
                        amount: String, bank: String, image: File) {
         compositeDisposable.add(
-            mainRepository.addBankPayment(token, type, date, unitId, amount, bank, image)
+            mainRepository.addBankPayment(token, type, date, paidTill, unitId, amount, bank, image)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ items ->

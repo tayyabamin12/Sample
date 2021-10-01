@@ -35,4 +35,5 @@
     <string name="current_password">Current Password</string>
     <string name="please_wait">Please wait</string>
     <string name="forget_password">Forget Password</string>
+    <string name="currently_there_is_no_policy_document">Currently there is no policy document.</string>
 </resources>

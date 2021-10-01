@@ -88,6 +88,10 @@ class MainRepository(private val apiHelper: ApiHelper) {
         return apiHelper.contractRequest(token, expiryDate, date, unitId, isRenew)
     }
 
+    fun getContractDetails(token: String, unitId: Int): Single<ResponseContract> {
+        return apiHelper.getContractDetails(token, unitId)
+    }
+
     fun getTenantUnitDetails(token: String, unitId: Int): Single<ResponseUnitDetails> {
         return apiHelper.getTenantUnitDetails(token, unitId)
     }
@@ -104,6 +108,7 @@ class MainRepository(private val apiHelper: ApiHelper) {
         token: String,
         type: String,
         date: String,
+        paidTill: String,
         unitId: String,
         amount: String,
         creditCardNo: String,
@@ -114,6 +119,7 @@ class MainRepository(private val apiHelper: ApiHelper) {
             token,
             type,
             date,
+            paidTill,
             unitId,
             amount,
             creditCardNo,
@@ -126,30 +132,33 @@ class MainRepository(private val apiHelper: ApiHelper) {
         token: String,
         type: String,
         date: String,
+        paidTill: String,
         unitId: String,
         amount: String,
         paidTo: String,
         image: File
     ): Single<ResponseGeneralMessage> {
-        return apiHelper.addCashPayment(token, type, date, unitId, amount, paidTo, image)
+        return apiHelper.addCashPayment(token, type, date, paidTill, unitId, amount, paidTo, image)
     }
 
     fun addBankPayment(
         token: String,
         type: String,
         date: String,
+        paidTill: String,
         unitId: String,
         amount: String,
         bank: String,
         image: File
     ): Single<ResponseGeneralMessage> {
-        return apiHelper.addBankPayment(token, type, date, unitId, amount, bank, image)
+        return apiHelper.addBankPayment(token, type, date, paidTill, unitId, amount, bank, image)
     }
 
     fun addChequePayment(
         token: String,
         type: String,
         date: String,
+        paidTill: String,
         unitId: String,
         amount: String,
         bank: String,
@@ -160,6 +169,7 @@ class MainRepository(private val apiHelper: ApiHelper) {
             token,
             type,
             date,
+            paidTill,
             unitId,
             amount,
             bank,
@@ -176,5 +186,11 @@ class MainRepository(private val apiHelper: ApiHelper) {
         emergencyPhone: String
     ): Single<ResponseGeneralMessage> {
         return apiHelper.updateProfile(token, phone, email, emergencyName, emergencyPhone)
+    }
+
+    fun getPolicies(
+        token: String
+    ): Single<ResponsePolicies> {
+        return apiHelper.getPolicies(token)
     }
 }

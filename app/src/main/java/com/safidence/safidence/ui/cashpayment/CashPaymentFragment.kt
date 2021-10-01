@@ -73,6 +73,7 @@ class CashPaymentFragment : Fragment() {
             if (setErrorFields()) {
                 val token = SavePref(requireContext()).getAccessToken()
                 val dueDate = binding.etDueDate.text.toString()
+                val payTillDate = binding.etPayTill.text.toString()
                 val duePayment = binding.etDuePayment.text.toString()
                 val paidTo = binding.etPaidTo.text.toString()
 
@@ -81,6 +82,7 @@ class CashPaymentFragment : Fragment() {
                         token,
                         "cash",
                         dueDate,
+                        payTillDate,
                         unitId,
                         duePayment,
                         paidTo,

@@ -73,6 +73,7 @@ class CreditCardFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                         token,
                         "card",
                         dueDate,
+                        payTill,
                         unitId,
                         duePayment,
                         cCNo,

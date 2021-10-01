@@ -7,6 +7,7 @@ import java.io.File
 
 object Util {
 
+    private val pdfBaseUrl = "https://staging.safidence.com/storage/policies/"
     private val countries = arrayOf(
         "Afghanistan",
         "Albania",
@@ -248,6 +249,10 @@ object Util {
         "Zambia",
         "Zimbabwe"
     )
+
+    fun getPdfBaseUrl(): String {
+        return pdfBaseUrl
+    }
 
     fun getCountryList(): Array<String> {
         return countries
