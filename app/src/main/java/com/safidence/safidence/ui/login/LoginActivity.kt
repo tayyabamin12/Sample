@@ -10,8 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.safidence.safidence.MainActivity
 import com.safidence.safidence.R
-import com.safidence.safidence.data.api.ApiHelper
-import com.safidence.safidence.data.api.ApiServiceImpl
+import com.safidence.safidence.api.ApiHelper
+import com.safidence.safidence.api.ApiServiceImpl
 import com.safidence.safidence.data.prefs.SavePref
 import com.safidence.safidence.databinding.FragmentLoginBinding
 import com.safidence.safidence.ui.base.ViewModelFactory

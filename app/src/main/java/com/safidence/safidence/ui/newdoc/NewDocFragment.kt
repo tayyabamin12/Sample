@@ -16,8 +16,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.github.drjacky.imagepicker.ImagePicker
 import com.safidence.safidence.R
-import com.safidence.safidence.data.api.ApiHelper
-import com.safidence.safidence.data.api.ApiServiceImpl
+import com.safidence.safidence.api.ApiHelper
+import com.safidence.safidence.api.ApiServiceImpl
 import com.safidence.safidence.data.model.ResponseDocTypes
 import com.safidence.safidence.data.prefs.SavePref
 import com.safidence.safidence.databinding.FragmentNewDocBinding

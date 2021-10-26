@@ -13,8 +13,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.safidence.safidence.R
 import com.safidence.safidence.adapters.DocsAdapter
-import com.safidence.safidence.data.api.ApiHelper
-import com.safidence.safidence.data.api.ApiServiceImpl
+import com.safidence.safidence.api.ApiHelper
+import com.safidence.safidence.api.ApiServiceImpl
 import com.safidence.safidence.data.model.DocBody
 import com.safidence.safidence.data.prefs.SavePref
 import com.safidence.safidence.databinding.FragmentDocsBinding

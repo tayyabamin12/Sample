@@ -13,8 +13,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.safidence.safidence.R
-import com.safidence.safidence.data.api.ApiHelper
-import com.safidence.safidence.data.api.ApiServiceImpl
+import com.safidence.safidence.api.ApiHelper
+import com.safidence.safidence.api.ApiServiceImpl
 import com.safidence.safidence.data.model.BodyDuePayment
 import com.safidence.safidence.data.model.ResponseTenantUnits
 import com.safidence.safidence.data.prefs.SavePref

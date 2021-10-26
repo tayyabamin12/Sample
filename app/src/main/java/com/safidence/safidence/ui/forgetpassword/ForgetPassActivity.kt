@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.safidence.safidence.R
-import com.safidence.safidence.data.api.ApiHelper
-import com.safidence.safidence.data.api.ApiServiceImpl
+import com.safidence.safidence.api.ApiHelper
+import com.safidence.safidence.api.ApiServiceImpl
 import com.safidence.safidence.databinding.FragmentForgetPasswordBinding
 import com.safidence.safidence.ui.base.ViewModelFactory
 

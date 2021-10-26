@@ -1,4 +1,4 @@
-package com.safidence.safidence.data.api
+package com.safidence.safidence.api
 
 import com.rx2androidnetworking.Rx2AndroidNetworking
 import com.safidence.safidence.data.model.*
@@ -7,7 +7,7 @@ import java.io.File
 
 class ApiServiceImpl : ApiService {
 
-    private var baseUrl = "https://staging.safidence.com/api/"
+    private var baseUrl = ""
 
     override fun login(nic: String, password: String): Single<ResponseLogin> {
         return Rx2AndroidNetworking.post(baseUrl.plus("login"))

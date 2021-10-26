@@ -1,6 +1,6 @@
 package com.safidence.safidence.data.repository
 
-import com.safidence.safidence.data.api.ApiHelper
+import com.safidence.safidence.api.ApiHelper
 import com.safidence.safidence.data.model.*
 import io.reactivex.Single
 import java.io.File

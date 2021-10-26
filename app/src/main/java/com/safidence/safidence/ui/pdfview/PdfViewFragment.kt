@@ -13,8 +13,8 @@ import com.downloader.Error
 import com.downloader.OnDownloadListener
 import com.downloader.PRDownloader
 import com.safidence.safidence.R
-import com.safidence.safidence.data.api.ApiHelper
-import com.safidence.safidence.data.api.ApiServiceImpl
+import com.safidence.safidence.api.ApiHelper
+import com.safidence.safidence.api.ApiServiceImpl
 import com.safidence.safidence.databinding.FragmentPdfviewBinding
 import com.safidence.safidence.ui.base.ViewModelFactory
 import com.safidence.safidence.utils.Util

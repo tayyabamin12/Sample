@@ -1,4 +1,4 @@
-package com.safidence.safidence.data.api
+package com.safidence.safidence.api
 
 import com.safidence.safidence.data.model.*
 import io.reactivex.Single
